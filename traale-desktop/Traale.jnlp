@@ -14,11 +14,11 @@
 
    </information>
    <resources>
-      <jar href="TraaleJava.jar" main="true" />
+      <jar href="Traale.jar" main="true" />
    </resources>
 
    
-   <application-desc name="TraaleJava" main-class="org.thingml.ble.TraaleFrame">
+   <application-desc name="TraaleJava" main-class="org.thingml.traale.gui.TraaleFrame">
    		<update check="background" policy="prompt-update"/>
    </application-desc>
    
