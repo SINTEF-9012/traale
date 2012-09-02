@@ -32,7 +32,7 @@
             <configuration>
                 <archive>
                     <manifest>
-                        <mainClass>org.thingml.traale.gui.TraaleFrame</mainClass>
+                        <mainClass>org.thingml.traale.desktop.TraaleFrame</mainClass>
                     </manifest>
                 </archive>
                 <descriptorRefs>
@@ -49,7 +49,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>org.thingml.traale.gui.TraaleFrame</mainClass>
+                            <mainClass>org.thingml.traale.desktop.TraaleFrame</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

@@ -18,7 +18,7 @@
    </resources>
 
    
-   <application-desc name="TraaleJava" main-class="org.thingml.traale.gui.TraaleFrame">
+   <application-desc name="TraaleJava" main-class="org.thingml.traale.desktop.TraaleFrame">
    		<update check="background" policy="prompt-update"/>
    </application-desc>
    
