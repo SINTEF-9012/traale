@@ -1,0 +1,11 @@
+Compile:
+mvn clean install
+
+Execute with maven (native lib problem with linux);
+mvn exec:java -Dexec.mainClass="org.thingml.ble.TraaleFrame"
+
+Package executable JAR:
+mvn assembly:single
+
+Run the executable JAR:
+java -Djava.library.path="." -jar target/TraaleJava-0.0.1-SNAPSHOT-jar-with-dependencies.jar
