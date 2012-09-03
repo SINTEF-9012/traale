@@ -136,8 +136,8 @@ public class Traale extends BGAPIDefaultListener {
     /**************************************************************
      * IMU
      **************************************************************/ 
-    public static final int IMU_VALUE = 0x33;
-    public static final int IMU_CONFIG = 0x34;
+    public static final int IMU_VALUE = 0x36;
+    public static final int IMU_CONFIG = 0x37;
     public static final int IMU_MODE = 0x3C;
     
     public void subscribeIMU() {
@@ -186,8 +186,8 @@ public class Traale extends BGAPIDefaultListener {
     /**************************************************************
      * MAGNETOMETER
      **************************************************************/ 
-    public static final int MAG_VALUE = 0x36;
-    public static final int MAG_CONFIG = 0x37;
+    public static final int MAG_VALUE = 0x33;
+    public static final int MAG_CONFIG = 0x34;
     public static final int MAG_INTERVAL = 0x3E;
     
     public void subscribeMagnetometer() {
