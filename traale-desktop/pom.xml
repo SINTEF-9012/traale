@@ -119,6 +119,12 @@
     </dependency>
     
     <dependency>
+        <groupId>org.thingml</groupId>
+        <artifactId>rtcharts-swing</artifactId>
+        <version>0.9.0-SNAPSHOT</version>
+    </dependency>
+    
+    <dependency>
       <groupId>org.thingml</groupId>
       <artifactId>bglib-gui</artifactId>
       <version>1.0.3-SNAPSHOT</version>

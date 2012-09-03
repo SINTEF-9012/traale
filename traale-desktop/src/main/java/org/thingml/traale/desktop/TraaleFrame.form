@@ -99,6 +99,7 @@
         <Component class="javax.swing.JCheckBox" name="jCheckBoxSubscribeBatt">
           <Properties>
             <Property name="text" type="java.lang.String" value="Subscribe"/>
+            <Property name="opaque" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxSubscribeBattActionPerformed"/>
@@ -176,7 +177,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="jTextFieldInfoHW" min="-2" pref="125" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="74" max="32767" attributes="0"/>
                           <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
@@ -328,7 +329,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jCheckBoxSubscribeTemp" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButtonGraphTemp" alignment="0" min="-2" pref="83" max="-2" attributes="0"/>
+                          <Component id="jButtonGraphTemp" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -348,10 +349,13 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jTextFieldIntervalTemp" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jLabel4" alignment="3" max="32767" attributes="0"/>
-                              <Component id="jButtonGraphTemp" max="32767" attributes="0"/>
                               <Component id="jButtonWriteIntervalTemp" min="-2" max="-2" attributes="0"/>
                               <Component id="jButtonReadIntervalTemp" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jTextFieldTimeTemp" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jButtonGraphTemp" pref="26" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                   </Group>
@@ -407,8 +411,13 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButtonGraphTemp">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Graph"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/chart-1.png"/>
+                </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonGraphTempActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
@@ -443,9 +452,9 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="jPanel5" pref="480" max="32767" attributes="0"/>
+                              <Component id="jPanel5" pref="482" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanel6" pref="437" max="32767" attributes="0"/>
+                              <Component id="jPanel6" pref="439" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
@@ -463,8 +472,8 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jCheckBoxSubscribeHumid" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButtonGraphHumid" alignment="1" min="-2" pref="83" max="-2" attributes="0"/>
+                          <Component id="jCheckBoxSubscribeHumid" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonGraphHumid" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -532,8 +541,13 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButtonGraphHumid">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Graph"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/chart-1.png"/>
+                </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonGraphHumidActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
@@ -580,7 +594,7 @@
                           <Component id="jTextFieldRH1Humid" min="-2" pref="60" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="207" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -703,7 +717,7 @@
                           <Component id="jTextFieldRH2Humid" min="-2" pref="60" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="164" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -724,7 +738,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jLabel11" alignment="0" pref="16" max="32767" attributes="0"/>
+                              <Component id="jLabel11" alignment="0" max="32767" attributes="0"/>
                               <Component id="jProgressBarRH2Humid" alignment="0" min="-2" pref="16" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -811,7 +825,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jCheckBoxSubscribeMag" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButtonGraphMag" alignment="1" min="-2" pref="83" max="-2" attributes="0"/>
+                                  <Component id="jButtonGraphMag" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
@@ -877,7 +891,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButtonGraphMag">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Graph"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/chart-1.png"/>
+                </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel21">
@@ -1050,7 +1066,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jCheckBoxSubscribeIMU" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButtonGraphIMU" min="-2" pref="83" max="-2" attributes="0"/>
+                                      <Component id="jButtonGraphIMU" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -1172,7 +1188,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButtonGraphIMU">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Graph"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/chart-1.png"/>
+                </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JCheckBox" name="jCheckBoxSubscribeIMU">
@@ -1286,7 +1304,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel11" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                          <Component id="jButtonGraphAcc" min="-2" pref="83" max="-2" attributes="0"/>
+                          <Component id="jButtonGraphAcc" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1306,7 +1324,9 @@
               <SubComponents>
                 <Component class="javax.swing.JButton" name="jButtonGraphAcc">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Graph"/>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/chart-1.png"/>
+                    </Property>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JPanel" name="jPanel11">
@@ -1385,7 +1405,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel15" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                          <Component id="jButtonGraphGyro" min="-2" pref="83" max="-2" attributes="0"/>
+                          <Component id="jButtonGraphGyro" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1405,7 +1425,9 @@
               <SubComponents>
                 <Component class="javax.swing.JButton" name="jButtonGraphGyro">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Graph"/>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/chart-1.png"/>
+                    </Property>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JPanel" name="jPanel15">
@@ -1413,7 +1435,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jProgressBarGyroX" alignment="0" pref="517" max="32767" attributes="0"/>
+                          <Component id="jProgressBarGyroX" alignment="0" pref="545" max="32767" attributes="0"/>
                           <Component id="jProgressBarGyroY" alignment="0" max="32767" attributes="0"/>
                           <Component id="jProgressBarGyroZ" alignment="0" max="32767" attributes="0"/>
                       </Group>
