@@ -121,7 +121,12 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
         jTextFieldInfoSerial.setText("N/A");
         jTextFieldInfoModel.setText("N/A");
         jTextFieldInfoManuf.setText("N/A");
-    }
+        
+         if (logform != null) {
+            logform.setVisible(false);
+            logform.dispose();
+         }
+    } 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -242,6 +247,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
         jProgressBarGyroX = new javax.swing.JProgressBar();
         jProgressBarGyroY = new javax.swing.JProgressBar();
         jProgressBarGyroZ = new javax.swing.JProgressBar();
+        jButtonLog = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
@@ -530,7 +536,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
                 .addComponent(jTextFieldRH1Humid, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel15)
-                .addContainerGap(207, Short.MAX_VALUE))
+                .addContainerGap(250, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -604,7 +610,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
                 .addComponent(jTextFieldRH2Humid, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel17)
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addContainerGap(207, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -633,9 +639,9 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE))
+                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -973,7 +979,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jProgressBarGyroX, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
+            .addComponent(jProgressBarGyroX, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE)
             .addComponent(jProgressBarGyroY, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jProgressBarGyroZ, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -1123,6 +1129,13 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
 
+        jButtonLog.setIcon(new javax.swing.ImageIcon(getClass().getResource("/file-3.png"))); // NOI18N
+        jButtonLog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLogActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
@@ -1144,7 +1157,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jTextFieldInfoHW, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
                         .addComponent(jLabel27))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jTextFieldInfoFW, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1153,7 +1166,9 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextFieldInfoSerial)
                     .addComponent(jButtonReqInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
-                .addGap(220, 220, 220))
+                .addGap(127, 127, 127)
+                .addComponent(jButtonLog)
+                .addContainerGap())
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1169,7 +1184,8 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
                     .addComponent(jLabel25)
                     .addComponent(jTextFieldInfoHW, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldInfoSerial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldInfoSerial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonLog))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
@@ -1331,7 +1347,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
 
     private void jButtonGraphTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGraphTempActionPerformed
     SkinTempGraphFrame tempform = new SkinTempGraphFrame(buff_skinTemperature);
-    tempform.setSize(600, 200);
+    tempform.setSize(600, 300);
     tempform.setVisible(true);
     }//GEN-LAST:event_jButtonGraphTempActionPerformed
 
@@ -1348,22 +1364,40 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
     }//GEN-LAST:event_jButtonGraphIMUActionPerformed
 
     private void jButtonGraphMagActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGraphMagActionPerformed
-        ThreeAxisGraphFrame tempform = new ThreeAxisGraphFrame(buff_mx, buff_my, buff_mz, "Magnetometer", new Color(255,102,0) , -2047, 2048, 512);
+        ThreeAxisGraphFrame tempform = new ThreeAxisGraphFrame(buff_mx, buff_my, buff_mz, "Magnetometer", new Color(255,102,0) , -1023, 1024, 256);
         tempform.setSize(600, 200*3);
         tempform.setVisible(true);
     }//GEN-LAST:event_jButtonGraphMagActionPerformed
 
     private void jButtonGraphGyroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGraphGyroActionPerformed
-        ThreeAxisGraphFrame tempform = new ThreeAxisGraphFrame(buff_gx, buff_gy, buff_gz, "Gyroscopes", new Color(255,153,0) , -2047, 2048, 512);
+        ThreeAxisGraphFrame tempform = new ThreeAxisGraphFrame(buff_gx, buff_gy, buff_gz, "Gyroscopes", new Color(255,153,0) , -1023, 1024, 256);
         tempform.setSize(600, 200*3);
         tempform.setVisible(true);
     }//GEN-LAST:event_jButtonGraphGyroActionPerformed
 
     private void jButtonGraphAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGraphAccActionPerformed
-        ThreeAxisGraphFrame tempform = new ThreeAxisGraphFrame(buff_ax, buff_ay, buff_az, "Accelerometers", new Color(255,204,0) , -2047, 2048, 512);
+        ThreeAxisGraphFrame tempform = new ThreeAxisGraphFrame(buff_ax, buff_ay, buff_az, "Accelerometers", new Color(255,204,0) , -2047, 2048, 256);
         tempform.setSize(600, 200*3);
         tempform.setVisible(true);
     }//GEN-LAST:event_jButtonGraphAccActionPerformed
+
+    
+    FileLoggerForm logform;
+            
+    private void jButtonLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogActionPerformed
+        if (logform != null) {
+            logform.setVisible(false);
+            logform.dispose();
+        }
+        if (traale != null) {
+            logform = new FileLoggerForm(traale);
+            logform.pack();
+            logform.setVisible(true);
+        }
+        else {
+            System.err.println("Not Connected.");
+        }
+    }//GEN-LAST:event_jButtonLogActionPerformed
     
     /**
      * @param args the command line arguments
@@ -1393,6 +1427,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
     private javax.swing.JButton jButtonGraphIMU;
     private javax.swing.JButton jButtonGraphMag;
     private javax.swing.JButton jButtonGraphTemp;
+    private javax.swing.JButton jButtonLog;
     private javax.swing.JButton jButtonReadIntervalHumid;
     private javax.swing.JButton jButtonReadIntervalIMU;
     private javax.swing.JButton jButtonReadIntervalMag;
@@ -1614,13 +1649,11 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
 		heading = 2 * Math.atan2(x,w);
 		attitude = Math.PI/2;
 		bank = 0;
-		return;
 	}
         else if (test < -0.499*unit) { // singularity at south pole
 		heading = -2 * Math.atan2(x,w);
 		attitude = -Math.PI/2;
 		bank = 0;
-		return;
 	}
         else {
             heading = Math.atan2(2*y*w-2*x*z , sqx - sqy - sqz + sqw);

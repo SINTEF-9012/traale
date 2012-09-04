@@ -177,7 +177,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="jTextFieldInfoHW" min="-2" pref="125" max="-2" attributes="0"/>
-                          <EmptySpace pref="132" max="32767" attributes="0"/>
+                          <EmptySpace pref="183" max="32767" attributes="0"/>
                           <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
@@ -190,7 +190,9 @@
                       <Component id="jTextFieldInfoSerial" max="32767" attributes="0"/>
                       <Component id="jButtonReqInfo" pref="125" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="220" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="127" max="-2" attributes="0"/>
+                  <Component id="jButtonLog" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
               <Component id="jPanel2" alignment="1" max="32767" attributes="0"/>
               <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
@@ -209,6 +211,7 @@
                       <Component id="jTextFieldInfoHW" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel27" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
                       <Component id="jTextFieldInfoSerial" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonLog" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -452,9 +455,9 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="jPanel5" pref="511" max="32767" attributes="0"/>
+                              <Component id="jPanel5" pref="525" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanel6" pref="468" max="32767" attributes="0"/>
+                              <Component id="jPanel6" pref="482" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
@@ -594,7 +597,7 @@
                           <Component id="jTextFieldRH1Humid" min="-2" pref="60" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="207" max="32767" attributes="0"/>
+                          <EmptySpace pref="250" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -717,7 +720,7 @@
                           <Component id="jTextFieldRH2Humid" min="-2" pref="60" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="164" max="32767" attributes="0"/>
+                          <EmptySpace pref="207" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1447,7 +1450,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jProgressBarGyroX" alignment="0" pref="545" max="32767" attributes="0"/>
+                          <Component id="jProgressBarGyroX" alignment="0" pref="631" max="32767" attributes="0"/>
                           <Component id="jProgressBarGyroY" alignment="0" max="32767" attributes="0"/>
                           <Component id="jProgressBarGyroZ" alignment="0" max="32767" attributes="0"/>
                       </Group>
@@ -1504,6 +1507,16 @@
             </Container>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="jButtonLog">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/file-3.png"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonLogActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>
