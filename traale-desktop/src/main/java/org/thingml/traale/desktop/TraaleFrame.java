@@ -19,6 +19,7 @@
  */
 package org.thingml.traale.desktop;
 
+import java.awt.Color;
 import org.thingml.traale.driver.TraaleListener;
 import org.thingml.traale.driver.Traale;
 import java.text.DecimalFormat;
@@ -620,7 +621,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
                     .addComponent(jProgressBarRH2Temp, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jProgressBarRH2Humid, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
@@ -683,6 +684,11 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
         });
 
         jButtonGraphMag.setIcon(new javax.swing.ImageIcon(getClass().getResource("/chart-1.png"))); // NOI18N
+        jButtonGraphMag.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGraphMagActionPerformed(evt);
+            }
+        });
 
         jLabel21.setText("Interval (ms) : ");
 
@@ -874,6 +880,11 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Accelerometers"));
 
         jButtonGraphAcc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/chart-1.png"))); // NOI18N
+        jButtonGraphAcc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGraphAccActionPerformed(evt);
+            }
+        });
 
         jProgressBarAccX.setForeground(new java.awt.Color(255, 204, 0));
         jProgressBarAccX.setMaximum(2048);
@@ -934,6 +945,11 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
         jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder("Gyroscopes"));
 
         jButtonGraphGyro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/chart-1.png"))); // NOI18N
+        jButtonGraphGyro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGraphGyroActionPerformed(evt);
+            }
+        });
 
         jProgressBarGyroX.setForeground(new java.awt.Color(255, 153, 0));
         jProgressBarGyroX.setMaximum(2048);
@@ -1128,7 +1144,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jTextFieldInfoHW, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
                         .addComponent(jLabel27))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jTextFieldInfoFW, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1330,6 +1346,24 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
         tempform.setSize(600, 200*4);
         tempform.setVisible(true);
     }//GEN-LAST:event_jButtonGraphIMUActionPerformed
+
+    private void jButtonGraphMagActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGraphMagActionPerformed
+        ThreeAxisGraphFrame tempform = new ThreeAxisGraphFrame(buff_mx, buff_my, buff_mz, "Magnetometer", new Color(255,102,0) , -2047, 2048, 512);
+        tempform.setSize(600, 200*3);
+        tempform.setVisible(true);
+    }//GEN-LAST:event_jButtonGraphMagActionPerformed
+
+    private void jButtonGraphGyroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGraphGyroActionPerformed
+        ThreeAxisGraphFrame tempform = new ThreeAxisGraphFrame(buff_gx, buff_gy, buff_gz, "Gyroscopes", new Color(255,153,0) , -2047, 2048, 512);
+        tempform.setSize(600, 200*3);
+        tempform.setVisible(true);
+    }//GEN-LAST:event_jButtonGraphGyroActionPerformed
+
+    private void jButtonGraphAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGraphAccActionPerformed
+        ThreeAxisGraphFrame tempform = new ThreeAxisGraphFrame(buff_ax, buff_ay, buff_az, "Accelerometers", new Color(255,204,0) , -2047, 2048, 512);
+        tempform.setSize(600, 200*3);
+        tempform.setVisible(true);
+    }//GEN-LAST:event_jButtonGraphAccActionPerformed
     
     /**
      * @param args the command line arguments
