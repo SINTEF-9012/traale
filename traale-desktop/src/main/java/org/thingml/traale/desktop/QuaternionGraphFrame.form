@@ -30,28 +30,28 @@
   <SubComponents>
     <Container class="javax.swing.JPanel" name="jPanelGraphQW">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LineGraphPanel(qw_buffer, &quot;Quaternion W (16 bits)&quot;, 0 - (1&lt;&lt;15), (1&lt;&lt;15), (1&lt;&lt;13), new java.awt.Color(0, 204, 0));"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LineGraphPanel(qw_buffer, &quot;Quaternion W (16 bits)&quot;, 0 - (1&lt;&lt;14), (1&lt;&lt;14), (1&lt;&lt;12), new java.awt.Color(0, 204, 0));"/>
       </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanelGraphQX">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LineGraphPanel(qx_buffer, &quot;Quaternion X (16 bits)&quot;, 0 - (1&lt;&lt;15), (1&lt;&lt;15), (1&lt;&lt;13), new java.awt.Color(0, 204, 0));"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LineGraphPanel(qx_buffer, &quot;Quaternion X (16 bits)&quot;, 0 - (1&lt;&lt;14), (1&lt;&lt;14), (1&lt;&lt;12), new java.awt.Color(0, 204, 0));"/>
       </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanelGraphQY">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LineGraphPanel(qy_buffer, &quot;Quaternion Y (16 bits)&quot;, 0 - (1&lt;&lt;15), (1&lt;&lt;15), (1&lt;&lt;13), new java.awt.Color(0, 204, 0));"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LineGraphPanel(qy_buffer, &quot;Quaternion Y (16 bits)&quot;, 0 - (1&lt;&lt;14), (1&lt;&lt;14), (1&lt;&lt;12), new java.awt.Color(0, 204, 0));"/>
       </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanelGraphQZ">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LineGraphPanel(qz_buffer, &quot;Quaternion Z (16 bits)&quot;, 0 - (1&lt;&lt;15), (1&lt;&lt;15), (1&lt;&lt;13), new java.awt.Color(0, 204, 0));"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LineGraphPanel(qz_buffer, &quot;Quaternion Z (16 bits)&quot;, 0 - (1&lt;&lt;14), (1&lt;&lt;14), (1&lt;&lt;12), new java.awt.Color(0, 204, 0));"/>
       </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>

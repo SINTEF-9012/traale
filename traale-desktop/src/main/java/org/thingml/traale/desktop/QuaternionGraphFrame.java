@@ -58,10 +58,10 @@ public class QuaternionGraphFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanelGraphQW = new LineGraphPanel(qw_buffer, "Quaternion W (16 bits)", 0 - (1<<15), (1<<15), (1<<13), new java.awt.Color(0, 204, 0));
-        jPanelGraphQX = new LineGraphPanel(qx_buffer, "Quaternion X (16 bits)", 0 - (1<<15), (1<<15), (1<<13), new java.awt.Color(0, 204, 0));
-        jPanelGraphQY = new LineGraphPanel(qy_buffer, "Quaternion Y (16 bits)", 0 - (1<<15), (1<<15), (1<<13), new java.awt.Color(0, 204, 0));
-        jPanelGraphQZ = new LineGraphPanel(qz_buffer, "Quaternion Z (16 bits)", 0 - (1<<15), (1<<15), (1<<13), new java.awt.Color(0, 204, 0));
+        jPanelGraphQW = new LineGraphPanel(qw_buffer, "Quaternion W (16 bits)", 0 - (1<<14), (1<<14), (1<<12), new java.awt.Color(0, 204, 0));
+        jPanelGraphQX = new LineGraphPanel(qx_buffer, "Quaternion X (16 bits)", 0 - (1<<14), (1<<14), (1<<12), new java.awt.Color(0, 204, 0));
+        jPanelGraphQY = new LineGraphPanel(qy_buffer, "Quaternion Y (16 bits)", 0 - (1<<14), (1<<14), (1<<12), new java.awt.Color(0, 204, 0));
+        jPanelGraphQZ = new LineGraphPanel(qz_buffer, "Quaternion Z (16 bits)", 0 - (1<<14), (1<<14), (1<<12), new java.awt.Color(0, 204, 0));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("IMU Quaternion");
