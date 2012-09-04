@@ -346,16 +346,16 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel3" alignment="1" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jButtonGraphTemp" pref="26" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jTextFieldIntervalTemp" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jLabel4" alignment="3" max="32767" attributes="0"/>
                               <Component id="jButtonWriteIntervalTemp" min="-2" max="-2" attributes="0"/>
                               <Component id="jButtonReadIntervalTemp" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jTextFieldTimeTemp" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jButtonGraphTemp" pref="26" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                              </Group>
                           </Group>
                       </Group>
                   </Group>
@@ -452,9 +452,9 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="jPanel5" pref="482" max="32767" attributes="0"/>
+                              <Component id="jPanel5" pref="511" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanel6" pref="439" max="32767" attributes="0"/>
+                              <Component id="jPanel6" pref="468" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
@@ -738,7 +738,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jLabel11" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel11" alignment="0" pref="16" max="32767" attributes="0"/>
                               <Component id="jProgressBarRH2Humid" alignment="0" min="-2" pref="16" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1192,6 +1192,9 @@
                   <Image iconType="3" name="/chart-1.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonGraphIMUActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="jCheckBoxSubscribeIMU">
               <Properties>

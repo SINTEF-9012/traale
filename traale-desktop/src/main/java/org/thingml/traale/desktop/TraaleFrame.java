@@ -429,15 +429,15 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButtonGraphTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 26, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextFieldIntervalTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonWriteIntervalTemp)
                         .addComponent(jButtonReadIntervalTemp)
-                        .addComponent(jTextFieldTimeTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jButtonGraphTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 26, Short.MAX_VALUE)
-                            .addContainerGap()))))
+                        .addComponent(jTextFieldTimeTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("I2C Humidity Sensors"));
@@ -620,7 +620,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
                     .addComponent(jProgressBarRH2Temp, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE)
                     .addComponent(jProgressBarRH2Humid, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
@@ -632,9 +632,9 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE))
+                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -819,6 +819,11 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
         jTextFieldTimeIMU.setText("No Data.");
 
         jButtonGraphIMU.setIcon(new javax.swing.ImageIcon(getClass().getResource("/chart-1.png"))); // NOI18N
+        jButtonGraphIMU.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGraphIMUActionPerformed(evt);
+            }
+        });
 
         jCheckBoxSubscribeIMU.setText("Subscribe");
         jCheckBoxSubscribeIMU.addActionListener(new java.awt.event.ActionListener() {
@@ -1319,6 +1324,12 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
         tempform.setSize(600, 200*4);
         tempform.setVisible(true);
     }//GEN-LAST:event_jButtonGraphHumidActionPerformed
+
+    private void jButtonGraphIMUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGraphIMUActionPerformed
+        QuaternionGraphFrame tempform = new QuaternionGraphFrame(buff_qw, buff_qx, buff_qy, buff_qz);
+        tempform.setSize(600, 200*4);
+        tempform.setVisible(true);
+    }//GEN-LAST:event_jButtonGraphIMUActionPerformed
     
     /**
      * @param args the command line arguments
