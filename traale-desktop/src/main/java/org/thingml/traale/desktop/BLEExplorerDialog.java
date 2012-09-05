@@ -517,7 +517,7 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
             }
         }
 	public void receive_attclient_attribute_value(int connection, int atthandle, int type, byte[] value) {
-            System.out.println("Attclient Value att=" + Integer.toHexString(atthandle) + " val = " + bytesToString(value));
+            //System.out.println("Attclient Value att=" + Integer.toHexString(atthandle) + " val = " + bytesToString(value));
         }
 	public void receive_attclient_read_multiple_response(int connection, byte[] handles) {}
 
