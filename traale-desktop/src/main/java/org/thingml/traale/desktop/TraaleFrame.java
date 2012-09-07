@@ -256,6 +256,9 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
         jProgressBarGyroY = new javax.swing.JProgressBar();
         jProgressBarGyroZ = new javax.swing.JProgressBar();
         jButtonURIMU = new javax.swing.JButton();
+        jTextFieldIMUInterrupt = new javax.swing.JTextField();
+        jCheckBoxIMUInterrupt = new javax.swing.JCheckBox();
+        jLabel28 = new javax.swing.JLabel();
         jButtonLog = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
@@ -1058,6 +1061,18 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
             }
         });
 
+        jTextFieldIMUInterrupt.setText("N/A");
+
+        jCheckBoxIMUInterrupt.setText("subscribe");
+        jCheckBoxIMUInterrupt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxIMUInterruptActionPerformed(evt);
+            }
+        });
+
+        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel28.setText("Interrupts");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -1073,8 +1088,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
                             .addComponent(jLabel30)
                             .addComponent(jLabel31))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldQW, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -1096,7 +1110,14 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
                                     .addComponent(jTextFieldRoll, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextFieldYaw, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextFieldPitch, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel32)))))
+                                    .addComponent(jLabel32)))
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(jTextFieldQW, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(103, 103, 103)
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextFieldIMUInterrupt, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jCheckBoxIMUInterrupt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel7Layout.createSequentialGroup()
                             .addComponent(jLabel13)
@@ -1160,14 +1181,25 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
                                     .addComponent(jTextFieldQW, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButtonGraphIMU, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jCheckBoxSubscribeIMU))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(jLabel28)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jCheckBoxSubscribeIMU)
+                                    .addComponent(jTextFieldIMUInterrupt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel20)
-                                .addComponent(jTextFieldTimeIMU, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButtonURIMU, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel20)
+                                        .addComponent(jTextFieldTimeIMU, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jButtonURIMU, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jCheckBoxIMUInterrupt)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13)
                             .addComponent(jTextFieldIMUMode, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1177,7 +1209,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
                         .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 2, Short.MAX_VALUE))))
         );
 
         jButtonLog.setIcon(new javax.swing.ImageIcon(getClass().getResource("/file-3.png"))); // NOI18N
@@ -1473,6 +1505,18 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
         tempform.setSize(600, 300);
         tempform.setVisible(true);
     }//GEN-LAST:event_jButtonURIMUActionPerformed
+
+    private void jCheckBoxIMUInterruptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxIMUInterruptActionPerformed
+        if (traale != null) {
+            if (jCheckBoxIMUInterrupt.isSelected()) {
+                traale.subscribeIMUInterrupt();
+                traale.readIMUMode();
+            }
+            else {
+                traale.unsubscribeIMUInterrupt();
+            }
+        }
+    }//GEN-LAST:event_jCheckBoxIMUInterruptActionPerformed
     
     /**
      * @param args the command line arguments
@@ -1516,6 +1560,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
     private javax.swing.JButton jButtonWriteIntervalIMU;
     private javax.swing.JButton jButtonWriteIntervalMag;
     private javax.swing.JButton jButtonWriteIntervalTemp;
+    private javax.swing.JCheckBox jCheckBoxIMUInterrupt;
     private javax.swing.JCheckBox jCheckBoxSubscribeBatt;
     private javax.swing.JCheckBox jCheckBoxSubscribeHumid;
     private javax.swing.JCheckBox jCheckBoxSubscribeIMU;
@@ -1541,6 +1586,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
@@ -1585,6 +1631,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
     private javax.swing.JProgressBar jProgressBarRH2Temp;
     private javax.swing.JProgressBar jProgressBarValueTemp;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextFieldIMUInterrupt;
     private javax.swing.JTextField jTextFieldIMUMode;
     private javax.swing.JTextField jTextFieldInfoFW;
     private javax.swing.JTextField jTextFieldInfoHW;
@@ -1858,5 +1905,16 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
     @Override
     public void fw_revision(String value) {
         jTextFieldInfoFW.setText(value);
+    }
+
+    @Override
+    public void imuInterrupt(int value) {
+        if (value == 4) {
+            jTextFieldIMUInterrupt.setText("NO MOTION");
+        }
+        else if (value == 2) {
+            jTextFieldIMUInterrupt.setText("MOTION");
+        }
+        else jTextFieldIMUInterrupt.setText("INT: " + value);
     }
 }

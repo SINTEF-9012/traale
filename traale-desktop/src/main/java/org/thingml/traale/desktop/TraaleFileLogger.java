@@ -251,5 +251,10 @@ public class TraaleFileLogger implements TraaleListener {
     public void fw_revision(String value) {
         if (logging) log.println(currentTimeStamp() + SEPARATOR + "[fw_revision]" + SEPARATOR + value);
     }
+
+    @Override
+    public void imuInterrupt(int value) {
+        if (logging) log.println(currentTimeStamp() + SEPARATOR + "[imuInterrupt]" + SEPARATOR + value);
+    }
     
 }

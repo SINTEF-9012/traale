@@ -1060,9 +1060,8 @@
                                   <Component id="jLabel31" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jTextFieldQW" min="-2" pref="120" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                               <Group type="102" attributes="0">
@@ -1089,6 +1088,15 @@
                                           <Component id="jTextFieldYaw" min="-2" pref="120" max="-2" attributes="0"/>
                                           <Component id="jTextFieldPitch" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
                                           <Component id="jLabel32" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jTextFieldQW" min="-2" pref="120" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jTextFieldIMUInterrupt" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="jCheckBoxIMUInterrupt" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="jLabel28" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -1172,17 +1180,33 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jButtonGraphIMU" min="-2" pref="26" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jCheckBoxSubscribeIMU" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jTextFieldTimeIMU" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jCheckBoxSubscribeIMU" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jTextFieldIMUInterrupt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <Component id="jButtonURIMU" alignment="1" min="-2" pref="26" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                                              <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jTextFieldTimeIMU" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="jButtonURIMU" alignment="1" min="-2" pref="26" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jCheckBoxIMUInterrupt" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jTextFieldIMUMode" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
@@ -1194,7 +1218,7 @@
                               <Component id="jPanel14" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -1560,6 +1584,25 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonURIMUActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldIMUInterrupt">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="N/A"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="jCheckBoxIMUInterrupt">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="subscribe"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxIMUInterruptActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel28">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="Interrupts"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

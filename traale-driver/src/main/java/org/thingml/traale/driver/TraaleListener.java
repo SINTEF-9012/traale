@@ -33,6 +33,7 @@ public interface TraaleListener {
     
     void imu(int w, int x, int y, int z, int ax, int ay, int az, int gx, int gy, int gz);
     void imuMode(int value);
+    void imuInterrupt(int value);
     
     void magnetometer(int x, int y, int z);
     void magnetometerInterval(int value);

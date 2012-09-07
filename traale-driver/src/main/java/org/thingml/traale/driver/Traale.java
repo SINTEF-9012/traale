@@ -140,6 +140,9 @@ public class Traale extends BGAPIDefaultListener {
     public static final int IMU_CONFIG = 0x37;
     public static final int IMU_MODE = 0x3C;
     
+    public static final int IMU_INTERRUPT_VALUE = 0x39;
+    public static final int IMU_INTERRUPT_CONFIG = 0x3A;
+    
     public void subscribeIMU() {
         bgapi.send_attclient_write_command(connection, IMU_CONFIG, new byte[]{0x01, 0x00});
     }
@@ -148,11 +151,22 @@ public class Traale extends BGAPIDefaultListener {
         bgapi.send_attclient_write_command(connection, IMU_CONFIG, new byte[]{0x00, 0x00});
     }
     
+    public void subscribeIMUInterrupt() {
+        bgapi.send_attclient_write_command(connection, IMU_INTERRUPT_CONFIG, new byte[]{0x01, 0x00});
+    }
+    
+    public void unsubscribeIMUInterrupt() {
+        bgapi.send_attclient_write_command(connection, IMU_INTERRUPT_CONFIG, new byte[]{0x00, 0x00});
+    }
+    
     public void readIMUMode() {
         bgapi.send_attclient_read_by_handle(connection, IMU_MODE);
     }
     
     public void setIMUMode(int value) {
+        
+        bgapi.send_attclient_write_command(connection, IMU_INTERRUPT_CONFIG, new byte[]{0x01, 0x00});
+        
         byte[] i = new byte[1];
         i[0] = (byte)(value & 0xFF);
         bgapi.send_attclient_write_command(connection, IMU_MODE, i);
@@ -180,6 +194,12 @@ public class Traale extends BGAPIDefaultListener {
     private void imuMode(byte[] value) {
         for (TraaleListener l : listeners) {
             l.imuMode((value[0] & 0xFF));
+        }
+    }
+    
+    private void imuInterrupt(byte[] value) {
+        for (TraaleListener l : listeners) {
+            l.imuInterrupt((value[0] & 0xFF));
         }
     }
     
@@ -311,6 +331,7 @@ public class Traale extends BGAPIDefaultListener {
                 
                 case IMU_VALUE: imu(value); break;
                 case IMU_MODE: imuMode(value); break;
+                case IMU_INTERRUPT_VALUE: imuInterrupt(value); break;
                 
                 case MAG_VALUE: magnetometer(value); break;
                 case MAG_INTERVAL: magnetometerInterval(value); break;
@@ -323,7 +344,9 @@ public class Traale extends BGAPIDefaultListener {
                 case HW_REV: hw_revision(value); break;
                 case FW_REV: fw_revision(value); break;
                         
-                default: break;
+                default: 
+                    System.out.println("[Traale Driver] Got unknown attribute. Handle=" + Integer.toHexString(atthandle) + " val = " + bytesToString(value));
+                    break;
             }
         }
     }
@@ -339,6 +362,14 @@ public class Traale extends BGAPIDefaultListener {
         int mantissa = (value[3] << 16) + (value[2] << 8) + (value[1] & 0xFF);
         double result = mantissa * Math.pow(10, exp);
         return result;
+    }
+    
+    public String bytesToString(byte[] bytes) {
+        StringBuffer result = new StringBuffer();
+        result.append("[ ");
+        for(byte b : bytes) result.append( Integer.toHexString(b & 0xFF) + " ");
+        result.append("]");
+        return result.toString();        
     }
     
 }
