@@ -40,7 +40,7 @@ import org.thingml.traale.driver.TraaleListener;
 public class TraaleFileLogger implements TraaleListener {
     
     private SimpleDateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-    private String SEPARATOR = "\t";
+    private String SEPARATOR = ",";
     
     protected File folder;
     protected boolean logging = false;
