@@ -9,6 +9,7 @@ Bugs and Feature requests
 -------------------------
 Please see and use the issue tracker at: https://github.com/SINTEF-9012/traale/issues
 
-Screenshots / Documentation
----------------------------
-Under construction at: https://github.com/SINTEF-9012/traale/wiki
+Screenshots
+-----------
+
+![Traale Desktop Application](https://raw.github.com/SINTEF-9012/traale/master/traale/screenshots/TraaleJava2.png)
