@@ -40,7 +40,7 @@ import org.thingml.traale.driver.TraaleListener;
 public class TraaleFileLogger implements TraaleListener {
     
     private SimpleDateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-    private String SEPARATOR = ",";
+    private String SEPARATOR = "\t";
     
     protected File folder;
     protected boolean logging = false;
@@ -71,20 +71,20 @@ public class TraaleFileLogger implements TraaleListener {
        File sFolder = new File(folder, sName);
        sFolder.mkdir();
        try {
-           log = new PrintWriter(new FileWriter(new File(sFolder, "Traale_log.csv")));
+           log = new PrintWriter(new FileWriter(new File(sFolder, "Traale_log.txt")));
            log.println("# This file contains one line per data received from the traale unit.");
            
-           ski = new PrintWriter(new FileWriter(new File(sFolder, "Traale_ski.csv")));
+           ski = new PrintWriter(new FileWriter(new File(sFolder, "Traale_ski.txt")));
            ski.println("Time" + SEPARATOR + "Time (ms)" + SEPARATOR + "dT (ms)" + SEPARATOR + "Skin Temperature (°C)");
            
-           hum = new PrintWriter(new FileWriter(new File(sFolder, "Traale_hum.csv")));
+           hum = new PrintWriter(new FileWriter(new File(sFolder, "Traale_hum.txt")));
            hum.println("Time" + SEPARATOR + "Time (ms)" + SEPARATOR + "dT (ms)" + SEPARATOR + "T1" + SEPARATOR + "H1" + SEPARATOR + "T2" + SEPARATOR + "H2");
            
-           mag = new PrintWriter(new FileWriter(new File(sFolder, "Traale_mag.csv")));
+           mag = new PrintWriter(new FileWriter(new File(sFolder, "Traale_mag.txt")));
            mag.println("Time" + SEPARATOR + "Time (ms)" + SEPARATOR + "dT (ms)" + SEPARATOR + "Mag. X" + SEPARATOR + "Mag. Y" + SEPARATOR + "Mag. Z");
            
            
-           imu = new PrintWriter(new FileWriter(new File(sFolder, "Traale_imu.csv")));
+           imu = new PrintWriter(new FileWriter(new File(sFolder, "Traale_imu.txt")));
            imu.println("Time" + SEPARATOR + "Time (ms)" + SEPARATOR + "dT (ms)" + SEPARATOR + "Quad. W" + SEPARATOR + "Quad. X" + SEPARATOR + "Quad. Y" + SEPARATOR + "Quad. Z" + SEPARATOR + "Acc. X" + SEPARATOR + "Acc. Y" + SEPARATOR + "Acc. Z" + SEPARATOR + "Gyro. X" + SEPARATOR + "Gyro. Y" + SEPARATOR + "Gyro. Z" + SEPARATOR + "Pitch" + SEPARATOR + "Roll" + SEPARATOR + "Yaw");
            
        } catch (IOException ex) {
