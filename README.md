@@ -12,4 +12,4 @@ Please see and use the issue tracker at: https://github.com/SINTEF-9012/traale/i
 Screenshot
 ----------
 
-![Traale Desktop Application](https://raw.github.com/SINTEF-9012/traale/master/traale/screenshots/TraaleJava2.png)
+![Traale Desktop Application](https://raw.github.com/SINTEF-9012/traale/master/traale-resources/screenshots/TraaleJava2.png)
