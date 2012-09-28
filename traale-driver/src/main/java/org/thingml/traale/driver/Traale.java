@@ -117,9 +117,9 @@ public class Traale extends BGAPIDefaultListener {
     }
     
     private void humidity(byte[] value) {
-        int t1 = ((value[1] & 0xFF) << 8) + (value[0] & 0xFF);
+        int t1 = ((value[1] & 0xFF) << 8) + (value[0] & 0xFF); if (t1 > (1<<15)) { t1 = t1 - (1<<16); }
         int h1 = ((value[3] & 0xFF) << 8) + (value[2] & 0xFF);
-        int t2 = ((value[5] & 0xFF) << 8) + (value[4] & 0xFF);
+        int t2 = ((value[5] & 0xFF) << 8) + (value[4] & 0xFF); if (t2 > (1<<15)) { t2 = t2 - (1<<16); }
         int h2 = ((value[7] & 0xFF) << 8) + (value[6] & 0xFF);
         
         for (TraaleListener l : listeners) {
