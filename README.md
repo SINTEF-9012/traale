@@ -4,6 +4,7 @@ Download
 --------
 * Latest snapshot build: http://dist.thingml.org/traale/
 * To run, just launch http://dist.thingml.org/traale/Traale.jnlp
+* To run the 3D demo application: http://dist.thingml.org/traale/Traale3D.jnlp
 
 Bugs and Feature requests
 -------------------------
