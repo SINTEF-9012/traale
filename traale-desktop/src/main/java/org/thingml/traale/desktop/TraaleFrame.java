@@ -263,8 +263,16 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
 
         jTextField1.setText("jTextField1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 204));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Battery"));
@@ -1517,6 +1525,18 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
             }
         }
     }//GEN-LAST:event_jCheckBoxIMUInterruptActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+       
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        System.out.println("Closing connections.");
+        if (traale!=null) traale.disconnect();
+        if (bledialog!=null) bledialog.disconnect();
+        this.dispose();
+        System.exit(0);
+    }//GEN-LAST:event_formWindowClosing
     
     /**
      * @param args the command line arguments

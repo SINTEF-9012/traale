@@ -59,6 +59,20 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
         return bgapi != null && connection > -1;
     }
     
+    public void disconnect() {
+        if (bgapi != null) {
+            bgapi.removeListener(this);
+            bgapi.getLowLevelDriver().removeListener(logger);
+            bgapi.send_system_reset(0);
+            bgapi.disconnect();
+        }
+        if (port != null) {
+            port.close();
+        }
+        bgapi = null;
+        port = null;
+    }
+    
     protected BLEDeviceList devList = new BLEDeviceList();
     
     /**
@@ -301,19 +315,7 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
     private void jButtonBLED112DiscActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBLED112DiscActionPerformed
         jButtonBLED112Conn.setEnabled(false);
         jButtonBLED112Disc.setEnabled(false);
-        //jCheckBoxDebug.setSelected(false);
-        
-        if (bgapi != null) {
-            bgapi.removeListener(this);
-            bgapi.getLowLevelDriver().removeListener(logger);
-            bgapi.send_system_reset(0);
-            bgapi.disconnect();
-        }
-        if (port != null) {
-            port.close();
-        }
-        bgapi = null;
-        port = null;
+        disconnect();
         jTextFieldBLED112.setText("Disconnected.");
         jButtonBLED112Conn.setEnabled(true);
     }//GEN-LAST:event_jButtonBLED112DiscActionPerformed

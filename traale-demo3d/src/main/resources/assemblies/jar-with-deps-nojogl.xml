@@ -1,0 +1,24 @@
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+
+  <id>jar-with-deps-nojogl</id>
+  <formats>
+    <format>jar</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <dependencySets>
+    <dependencySet>
+      <outputDirectory>/</outputDirectory>
+      <useProjectArtifact>true</useProjectArtifact>
+      <unpack>true</unpack>
+      <scope>runtime</scope>
+      <excludes>
+        <exclude>org.jogamp.gluegen:gluegen-rt-main</exclude>
+        <exclude>org.jogamp.jogl:jogl-all-main</exclude>
+        <exclude>org.jogamp.gluegen:gluegen-rt</exclude>
+        <exclude>org.jogamp.jogl:jogl-all</exclude>
+      </excludes>
+    </dependencySet>
+  </dependencySets>
+</assembly>

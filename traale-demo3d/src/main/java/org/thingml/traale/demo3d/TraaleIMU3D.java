@@ -13,9 +13,7 @@ import javax.media.opengl.GLEventListener;
 import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.glu.GLU;
 import com.jogamp.opengl.util.FPSAnimator;
-import static javax.media.opengl.GL.*;  // GL constants
 import static javax.media.opengl.GL2.*; // GL2 constants
-import javax.sound.midi.SysexMessage;
 import org.thingml.traale.desktop.BLEExplorerDialog;
 import org.thingml.traale.driver.Traale;
 import org.thingml.traale.driver.TraaleListener;
@@ -78,6 +76,8 @@ public class TraaleIMU3D extends GLCanvas implements GLEventListener, TraaleList
                   new Thread() {
                      @Override
                      public void run() {
+                        if (traale != null) traale.disconnect();
+                        if (dialog != null) dialog.disconnect();
                         if (animator.isStarted()) animator.stop();
                         System.exit(0);
                      }
@@ -158,7 +158,7 @@ public class TraaleIMU3D extends GLCanvas implements GLEventListener, TraaleList
     
       // ----- Render the Color Cube -----
       gl.glLoadIdentity();                // reset the current model-view matrix
-      gl.glTranslatef(0.0f, 0.0f, -7.0f); // translate right and into the screen
+      gl.glTranslatef(0.0f, 0.0f, -5.0f); 
       
       //gl.glRotatef(angleCube, 1.0f, 1.0f, 1.0f); // rotate about the x, y and z-axes
  
@@ -170,45 +170,45 @@ public class TraaleIMU3D extends GLCanvas implements GLEventListener, TraaleList
  
       // Top-face
       gl.glColor3f(0.0f, 0.75f, 0.0f); // green
-      gl.glVertex3f(0.60f, 0.40f, -1.0f);
-      gl.glVertex3f(-0.60f, 0.40f, -1.0f);
-      gl.glVertex3f(-0.60f, 0.40f, 1.0f);
-      gl.glVertex3f(0.60f, 0.40f, 1.0f);
+      gl.glVertex3f(0.60f, 0.20f, -1.0f);
+      gl.glVertex3f(-0.60f, 0.20f, -1.0f);
+      gl.glVertex3f(-0.60f, 0.20f, 1.0f);
+      gl.glVertex3f(0.60f, 0.20f, 1.0f);
  
       // Bottom-face
       gl.glColor3f(1.0f, 0.5f, 0.0f); // orange
-      gl.glVertex3f(0.60f, 0.0f, 1.0f);
-      gl.glVertex3f(-0.60f, 0.0f, 1.0f);
-      gl.glVertex3f(-0.60f, 0.0f, -1.0f);
-      gl.glVertex3f(0.60f, 0.0f, -1.0f);
+      gl.glVertex3f(0.60f, -0.20f, 1.0f);
+      gl.glVertex3f(-0.60f, -0.20f, 1.0f);
+      gl.glVertex3f(-0.60f, -0.20f, -1.0f);
+      gl.glVertex3f(0.60f, -0.20f, -1.0f);
  
       // Front-face
       gl.glColor3f(1.0f, 0.0f, 0.0f); // red
-      gl.glVertex3f(0.60f, 0.40f, 1.0f);
-      gl.glVertex3f(-0.60f, 0.40f, 1.0f);
-      gl.glVertex3f(-0.60f, 0.0f, 1.0f);
-      gl.glVertex3f(0.60f, 0.0f, 1.0f);
+      gl.glVertex3f(0.60f, 0.20f, 1.0f);
+      gl.glVertex3f(-0.60f, 0.20f, 1.0f);
+      gl.glVertex3f(-0.60f, -0.20f, 1.0f);
+      gl.glVertex3f(0.60f, -0.20f, 1.0f);
  
       // Back-face
       gl.glColor3f(1.0f, 1.0f, 0.0f); // yellow
-      gl.glVertex3f(0.60f, 0.0f, -1.0f);
-      gl.glVertex3f(-0.60f, 0.0f, -1.0f);
-      gl.glVertex3f(-0.60f, 0.40f, -1.0f);
-      gl.glVertex3f(0.60f, 0.40f, -1.0f);
+      gl.glVertex3f(0.60f, -0.20f, -1.0f);
+      gl.glVertex3f(-0.60f, -0.20f, -1.0f);
+      gl.glVertex3f(-0.60f, 0.20f, -1.0f);
+      gl.glVertex3f(0.60f, 0.20f, -1.0f);
  
       // Left-face
       gl.glColor3f(0.0f, 0.0f, 1.0f); // blue
-      gl.glVertex3f(-0.60f, 0.40f, 1.0f);
-      gl.glVertex3f(-0.60f, 0.40f, -1.0f);
-      gl.glVertex3f(-0.60f, 0.0f, -1.0f);
-      gl.glVertex3f(-0.60f, 0.0f, 1.0f);
+      gl.glVertex3f(-0.60f, 0.20f, 1.0f);
+      gl.glVertex3f(-0.60f, 0.20f, -1.0f);
+      gl.glVertex3f(-0.60f, -0.20f, -1.0f);
+      gl.glVertex3f(-0.60f, -0.20f, 1.0f);
  
       // Right-face
       gl.glColor3f(1.0f, 0.0f, 1.0f); // magenta
-      gl.glVertex3f(0.60f, 0.40f, -1.0f);
-      gl.glVertex3f(0.60f, 0.40f, 1.0f);
-      gl.glVertex3f(0.60f, 0.0f, 1.0f);
-      gl.glVertex3f(0.60f, 0.0f, -1.0f);
+      gl.glVertex3f(0.60f, 0.20f, -1.0f);
+      gl.glVertex3f(0.60f, 0.20f, 1.0f);
+      gl.glVertex3f(0.60f, -0.20f, 1.0f);
+      gl.glVertex3f(0.60f, -0.20f, -1.0f);
  
       gl.glEnd(); // of the color cube
  
