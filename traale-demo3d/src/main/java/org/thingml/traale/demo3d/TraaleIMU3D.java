@@ -13,14 +13,14 @@ import javax.media.opengl.GLEventListener;
 import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.glu.GLU;
 import com.jogamp.opengl.util.FPSAnimator;
+import com.jogamp.opengl.util.awt.TextRenderer;
+import java.awt.geom.Rectangle2D;
 import static javax.media.opengl.GL2.*; // GL2 constants
 import org.thingml.traale.desktop.BLEExplorerDialog;
 import org.thingml.traale.driver.Traale;
 import org.thingml.traale.driver.TraaleListener;
  
-/**
- * JOGL 2.0 Example 2: Rotating 3D Shapes (GLCanvas)
- */
+
 @SuppressWarnings("serial")
 public class TraaleIMU3D extends GLCanvas implements GLEventListener, TraaleListener {
    // Define constants for the top-level container
@@ -47,7 +47,8 @@ public class TraaleIMU3D extends GLCanvas implements GLEventListener, TraaleList
        
        if (!dialog.isConnected()) {
            System.err.println("Not connected. Exiting.");
-           return;
+           dialog.disconnect();
+           System.exit(0);
        }
             
        final Traale traale = new Traale(dialog.getBgapi(), dialog.getConnection());
@@ -95,10 +96,7 @@ public class TraaleIMU3D extends GLCanvas implements GLEventListener, TraaleList
    // Setup OpenGL Graphics Renderer
  
    private GLU glu;  // for the GL Utility
-   private float anglePyramid = 0;    // rotational angle in degree for pyramid
-   private float angleCube = 0;       // rotational angle in degree for cube
-   private float speedPyramid = 2.0f; // rotational speed for pyramid
-   private float speedCube = -1.5f;   // rotational speed for cube
+
  
    /** Constructor to setup the GUI for this Component */
    public TraaleIMU3D() {
@@ -146,13 +144,17 @@ public class TraaleIMU3D extends GLCanvas implements GLEventListener, TraaleList
       gl.glMatrixMode(GL_MODELVIEW);
       gl.glLoadIdentity(); // reset
    }
+   
+   private TextRenderer renderer = new TextRenderer(new Font("SansSerif", Font.PLAIN, 32));
+   private float textScaleFactor = 0.01f;
  
    /**
     * Called back by the animator to perform rendering.
     */
    @Override
    public void display(GLAutoDrawable drawable) {
-      GL2 gl = drawable.getGL().getGL2();  // get the OpenGL 2 graphics context
+      
+       GL2 gl = drawable.getGL().getGL2();  // get the OpenGL 2 graphics context
       gl.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear color and depth buffers
  
     
@@ -160,9 +162,7 @@ public class TraaleIMU3D extends GLCanvas implements GLEventListener, TraaleList
       gl.glLoadIdentity();                // reset the current model-view matrix
       gl.glTranslatef(0.0f, 0.0f, -5.0f); 
       
-      //gl.glRotatef(angleCube, 1.0f, 1.0f, 1.0f); // rotate about the x, y and z-axes
- 
-       float scale = (float)Math.sqrt(qx * qx + qy * qy + qz * qz);
+      float scale = (float)Math.sqrt(qx * qx + qy * qy + qz * qz);
       
       gl.glRotatef((float)Math.acos(qw) * 2.0f * 180.0f / (float)Math.PI, qx/scale, qy/scale, qz/scale); // rotate about the x, y and z-axes
       
@@ -181,6 +181,10 @@ public class TraaleIMU3D extends GLCanvas implements GLEventListener, TraaleList
       gl.glVertex3f(-0.60f, -0.20f, 1.0f);
       gl.glVertex3f(-0.60f, -0.20f, -1.0f);
       gl.glVertex3f(0.60f, -0.20f, -1.0f);
+      
+      
+          
+      
  
       // Front-face
       gl.glColor3f(1.0f, 0.0f, 0.0f); // red
@@ -211,11 +215,91 @@ public class TraaleIMU3D extends GLCanvas implements GLEventListener, TraaleList
       gl.glVertex3f(0.60f, -0.20f, -1.0f);
  
       gl.glEnd(); // of the color cube
+      
+      /*
+      GL2 gl = drawable.getGL().getGL2();
+    gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
+
+    gl.glMatrixMode(GL2.GL_MODELVIEW);
+    gl.glLoadIdentity();
+    glu.gluLookAt(0, 0, 10,
+                  0, 0, 0,
+                  0, 1, 0);
+
+    // Base rotation of cube
+    float scale = (float)Math.sqrt(qx * qx + qy * qy + qz * qz);  
+    gl.glRotatef((float)Math.acos(qw) * 2.0f * 180.0f / (float)Math.PI, qx/scale, qy/scale, qz/scale);
+
+    // Six faces of cube
+    // Top face
+    gl.glPushMatrix();
+    gl.glRotatef(-90, 1, 0, 0);
+    drawFace(gl, 1.0f, 0.2f, 0.2f, 0.8f, "Top");
+    gl.glPopMatrix();
+    // Front face
+    drawFace(gl, 1.0f, 0.8f, 0.2f, 0.2f, "Front");
+    // Right face
+    gl.glPushMatrix();
+    gl.glRotatef(90, 0, 1, 0);
+    drawFace(gl, 1.0f, 0.2f, 0.8f, 0.2f, "Right");
+    // Back face    
+    gl.glRotatef(90, 0, 1, 0);
+    drawFace(gl, 1.0f, 0.8f, 0.8f, 0.2f, "Back");
+    // Left face    
+    gl.glRotatef(90, 0, 1, 0);
+    drawFace(gl, 1.0f, 0.2f, 0.8f, 0.8f, "Left");
+    gl.glPopMatrix();
+    // Bottom face
+    gl.glPushMatrix();
+    gl.glRotatef(90, 1, 0, 0);
+    drawFace(gl, 1.0f, 0.8f, 0.2f, 0.8f, "Bottom");
+    gl.glPopMatrix();
+    */
+      
+      
  
-      // Update the rotational angle after each refresh.
-      angleCube += speedCube;
    }
  
+   private void drawFace(GL2 gl,
+                        float faceSize,
+                        float r, float g, float b,
+                        String text) {
+    float halfFaceSize = faceSize / 2;
+    // Face is centered around the local coordinate system's z axis,
+    // at a z depth of faceSize / 2
+    gl.glColor3f(r, g, b);
+    gl.glBegin(GL2.GL_QUADS);
+    gl.glVertex3f(-halfFaceSize, -halfFaceSize, halfFaceSize);
+    gl.glVertex3f( halfFaceSize, -halfFaceSize, halfFaceSize);
+    gl.glVertex3f( halfFaceSize,  halfFaceSize, halfFaceSize);
+    gl.glVertex3f(-halfFaceSize,  halfFaceSize, halfFaceSize);
+    gl.glEnd();
+
+    // Now draw the overlaid text. In this setting, we don't want the
+    // text on the backward-facing faces to be visible, so we enable
+    // back-face culling; and since we're drawing the text over other
+    // geometry, to avoid z-fighting we disable the depth test. We
+    // could plausibly also use glPolygonOffset but this is simpler.
+    // Note that because the TextRenderer pushes the enable state
+    // internally we don't have to reset the depth test or cull face
+    // bits after we're done.
+    renderer.begin3DRendering();
+    gl.glDisable(GL2.GL_DEPTH_TEST);
+    gl.glEnable(GL2.GL_CULL_FACE);
+    // Note that the defaults for glCullFace and glFrontFace are
+    // GL_BACK and GL_CCW, which match the TextRenderer's definition
+    // of front-facing text.
+    Rectangle2D bounds = renderer.getBounds(text);
+    float w = (float) bounds.getWidth();
+    float h = (float) bounds.getHeight();
+    renderer.draw3D(text,
+                    w / -2.0f * textScaleFactor,
+                    h / -2.0f * textScaleFactor,
+                    halfFaceSize,
+                    textScaleFactor);
+    renderer.end3DRendering();
+  }
+   
    /**
     * Called back before the OpenGL context is destroyed. Release resource such as buffers.
     */

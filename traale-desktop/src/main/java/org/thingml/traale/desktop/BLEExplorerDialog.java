@@ -27,6 +27,7 @@ import gnu.io.SerialPort;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 import org.thingml.bglib.BDAddr;
 import org.thingml.bglib.BGAPITransport;
 import org.thingml.bglib.BGAPI;
@@ -80,6 +81,7 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
      */
     public BLEExplorerDialog() {
         initComponents();
+        jTextFieldSerial.setText(prefs.get("BLED112Serial", ""));
     }
 
     /**
@@ -92,10 +94,11 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jButtonBLED112Disc = new javax.swing.JButton();
         jButtonBLED112Conn = new javax.swing.JButton();
-        jTextFieldBLED112 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jTextFieldSerial = new javax.swing.JTextField();
+        jButtonBrowse = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -106,10 +109,10 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
         jButtonConnect = new javax.swing.JButton();
         jTextFieldConnStatus = new javax.swing.JTextField();
         jButtonRefresh = new javax.swing.JButton();
-        jCheckBoxDebug = new javax.swing.JCheckBox();
         jButton2 = new javax.swing.JButton();
-
-        jLabel1.setText("Dongle:");
+        jLabel1 = new javax.swing.JLabel();
+        jTextFieldBLED112 = new javax.swing.JTextField();
+        jCheckBoxDebug = new javax.swing.JCheckBox();
 
         jButtonBLED112Disc.setText("Disconnect");
         jButtonBLED112Disc.setEnabled(false);
@@ -126,7 +129,16 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
             }
         });
 
-        jTextFieldBLED112.setText("Not Connected.");
+        jLabel3.setText("Serial Port:");
+
+        jTextFieldSerial.setText("COM1");
+
+        jButtonBrowse.setText("Browse...");
+        jButtonBrowse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBrowseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -134,21 +146,24 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldBLED112)
+                .addComponent(jTextFieldSerial)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonBLED112Conn, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonBLED112Disc, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jButtonBLED112Disc, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel1)
                 .addComponent(jButtonBLED112Disc)
                 .addComponent(jButtonBLED112Conn)
-                .addComponent(jTextFieldBLED112, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel3)
+                .addComponent(jTextFieldSerial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonBrowse))
         );
 
         jLabel2.setText("BLE Devices:");
@@ -194,13 +209,6 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
             }
         });
 
-        jCheckBoxDebug.setText("Debug BLED112");
-        jCheckBoxDebug.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxDebugActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -210,8 +218,7 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jCheckBoxDebug))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
@@ -233,9 +240,7 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jCheckBoxDebug))
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -259,6 +264,17 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
             }
         });
 
+        jLabel1.setText("Dongle:");
+
+        jTextFieldBLED112.setText("Not Connected.");
+
+        jCheckBoxDebug.setText("Debug BLED112");
+        jCheckBoxDebug.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxDebugActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -268,7 +284,15 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jCheckBoxDebug)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jTextFieldBLED112))
+                        .addGap(18, 18, 18)
                         .addComponent(jButton2)))
                 .addContainerGap())
         );
@@ -278,19 +302,29 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(jCheckBoxDebug)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(jTextFieldBLED112, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    Preferences prefs = Preferences.userRoot().node(this.getClass().getName());
+    
     private void jButtonBLED112ConnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBLED112ConnActionPerformed
         jButtonBLED112Conn.setEnabled(false);
         jButtonBLED112Disc.setEnabled(false);
-        port  = BLED112.connectSerial();
+        port  = BLED112.connectSerial(jTextFieldSerial.getText().trim());
+   
         if (port != null) {
+            prefs.put("BLED112Serial", jTextFieldSerial.getText().trim());
             try {
                 jTextFieldBLED112.setText("Connected on " + port);
                 bgapi = new BGAPI(new BGAPITransport(port.getInputStream(), port.getOutputStream()));
@@ -307,7 +341,7 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
             }
         }
         else {
-            jTextFieldBLED112.setText("Not Connected.");
+            jTextFieldBLED112.setText("Invalide serial port:" + jTextFieldBLED112.getText());
             jButtonBLED112Conn.setEnabled(true);
         }
     }//GEN-LAST:event_jButtonBLED112ConnActionPerformed
@@ -384,6 +418,10 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButtonBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBrowseActionPerformed
+        jTextFieldSerial.setText(BLED112.selectSerialPort());
+    }//GEN-LAST:event_jButtonBrowseActionPerformed
     /*
      * GATT DISCOVERY
      */
@@ -601,6 +639,7 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonBLED112Conn;
     private javax.swing.JButton jButtonBLED112Disc;
+    private javax.swing.JButton jButtonBrowse;
     private javax.swing.JButton jButtonConnect;
     private javax.swing.JButton jButtonDisconnect;
     private javax.swing.JButton jButtonDiscover;
@@ -609,11 +648,13 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
     private javax.swing.JCheckBox jCheckBoxDebug;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JList jListDevices;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextFieldBLED112;
     private javax.swing.JTextField jTextFieldConnStatus;
+    private javax.swing.JTextField jTextFieldSerial;
     // End of variables declaration//GEN-END:variables
 }
