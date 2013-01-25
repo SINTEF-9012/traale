@@ -352,7 +352,7 @@ public class Traale extends BGAPIDefaultListener {
     }
     
     public static double getTemperature(byte[] value) {
-        if (value.length != 5) {
+        if (value.length < 5) {
             //System.err.println("Cannot convert " + ByteUtils.bytesToString(value) + " to a temperature (expecting 5 bytes).");
             System.err.println("Cannot convert " + value + " to a temperature (expecting 5 bytes).");
             return 0;
