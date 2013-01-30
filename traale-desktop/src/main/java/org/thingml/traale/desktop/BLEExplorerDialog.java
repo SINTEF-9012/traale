@@ -447,7 +447,6 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
             return;
         }
         
-        
         jButtonConnect.setEnabled(false);
         jButtonDisconnect.setEnabled(true);
        
