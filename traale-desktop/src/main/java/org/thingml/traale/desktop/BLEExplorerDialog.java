@@ -28,6 +28,7 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
+import javax.swing.JOptionPane;
 import org.thingml.bglib.BDAddr;
 import org.thingml.bglib.BGAPITransport;
 import org.thingml.bglib.BGAPI;
@@ -109,6 +110,14 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
         jButtonConnect = new javax.swing.JButton();
         jTextFieldConnStatus = new javax.swing.JTextField();
         jButtonRefresh = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jTextFieldIntervalMin = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jTextFieldIntervalMax = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jTextFieldLatency = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jTextFieldTimeout = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldBLED112 = new javax.swing.JTextField();
@@ -209,6 +218,32 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
             }
         });
 
+        jLabel4.setText("interval_min:");
+
+        jTextFieldIntervalMin.setText("60");
+        jTextFieldIntervalMin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldIntervalMinActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("interval_max:");
+
+        jTextFieldIntervalMax.setText("60");
+
+        jLabel6.setText("latency:");
+
+        jTextFieldLatency.setText("100");
+        jTextFieldLatency.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldLatencyActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("timeout:");
+
+        jTextFieldTimeout.setText("0");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -216,24 +251,42 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jButtonRefresh)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextFieldConnStatus)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButtonDiscover, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
-                            .addComponent(jButtonConnect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jButtonConnect, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonDisconnect, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jButtonDiscover, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonStopDiscover, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButtonStopDiscover, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonDisconnect, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))))
+                        .addComponent(jTextFieldIntervalMin)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldIntervalMax)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldLatency)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldTimeout)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -246,15 +299,24 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButtonStopDiscover)
                         .addComponent(jButtonDiscover))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldConnStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonConnect)
-                            .addComponent(jButtonDisconnect)
-                            .addComponent(jButtonRefresh))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jTextFieldIntervalMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(jTextFieldIntervalMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(jTextFieldLatency, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(jTextFieldTimeout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonRefresh)
+                    .addComponent(jTextFieldConnStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonConnect)
+                    .addComponent(jButtonDisconnect))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
 
         jButton2.setText("Close");
@@ -302,7 +364,7 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jCheckBoxDebug)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -368,10 +430,28 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
         BLEDevice d = (BLEDevice) jListDevices.getSelectedValue();
         if (d == null) return;
         
+        int interval_min;
+        int interval_max;
+        int latency;
+        int timeout;
+        
+        try {
+            interval_min = Integer.parseInt(jTextFieldIntervalMin.getText());
+            interval_max = Integer.parseInt(jTextFieldIntervalMax.getText());
+            latency = Integer.parseInt(jTextFieldLatency.getText());
+            timeout = Integer.parseInt(jTextFieldTimeout.getText());
+        }
+        catch(Exception e) {
+            JOptionPane.showMessageDialog(this, "Invalid connection parameter(s)" ,e.toString(), JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            return;
+        }
+        
+        
         jButtonConnect.setEnabled(false);
         jButtonDisconnect.setEnabled(true);
-        
-        bgapi.send_gap_connect_direct(BDAddr.fromString(d.getAddress()), 1, 0x3C, 0x3C, 0x64,0);
+       
+        bgapi.send_gap_connect_direct(BDAddr.fromString(d.getAddress()), 1, interval_min, interval_max, latency,timeout);
     }//GEN-LAST:event_jButtonConnectActionPerformed
 
     private void jButtonStopDiscoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStopDiscoverActionPerformed
@@ -422,6 +502,14 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
     private void jButtonBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBrowseActionPerformed
         jTextFieldSerial.setText(BLED112.selectSerialPort());
     }//GEN-LAST:event_jButtonBrowseActionPerformed
+
+    private void jTextFieldIntervalMinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIntervalMinActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldIntervalMinActionPerformed
+
+    private void jTextFieldLatencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldLatencyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldLatencyActionPerformed
     /*
      * GATT DISCOVERY
      */
@@ -649,12 +737,20 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JList jListDevices;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextFieldBLED112;
     private javax.swing.JTextField jTextFieldConnStatus;
+    private javax.swing.JTextField jTextFieldIntervalMax;
+    private javax.swing.JTextField jTextFieldIntervalMin;
+    private javax.swing.JTextField jTextFieldLatency;
     private javax.swing.JTextField jTextFieldSerial;
+    private javax.swing.JTextField jTextFieldTimeout;
     // End of variables declaration//GEN-END:variables
 }
