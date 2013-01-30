@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.thingml</groupId>
   <artifactId>traale</artifactId>
@@ -27,7 +26,7 @@
     </license>
   </licenses>
   
-  <version>0.5.0-SNAPSHOT</version>
+  <version>0.6.0</version>
   
   <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -153,6 +152,7 @@
 		<connection>scm:git:git@github.com:SINTEF-9012/traale.git</connection>
 		<url>scm:git:git@github.com:SINTEF-9012/traale.git</url>
 		<developerConnection>scm:git:git@github.com:SINTEF-9012/traale.git</developerConnection>
-    </scm>
+      <tag>traale-0.6.0</tag>
+  </scm>
   
 </project>
