@@ -80,8 +80,11 @@ public class Traale extends BGAPIDefaultListener {
     }
     
     private void skinTemperature(byte[] value) {
+        
+        int ts = ((value[6] & 0xFF) << 8) + (value[5] & 0xFF);
+        
         for (TraaleListener l : listeners) {
-            l.skinTemperature(getTemperature(value));
+            l.skinTemperature(getTemperature(value), ts);
         }
     }
     private void skinTemperatureInterval(byte[] value) {
@@ -122,8 +125,10 @@ public class Traale extends BGAPIDefaultListener {
         int t2 = ((value[5] & 0xFF) << 8) + (value[4] & 0xFF); if (t2 > (1<<14)) { t2 = t2 - (1<<15); }
         int h2 = ((value[7] & 0xFF) << 8) + (value[6] & 0xFF);
         
+        int ts = ((value[9] & 0xFF) << 8) + (value[8] & 0xFF);
+        
         for (TraaleListener l : listeners) {
-            l.humidity(t1, h1, t2, h2);
+            l.humidity(t1, h1, t2, h2, ts);
         }
     }
     private void humidityInterval(byte[] value) {
@@ -136,12 +141,16 @@ public class Traale extends BGAPIDefaultListener {
     /**************************************************************
      * IMU
      **************************************************************/ 
-    public static final int IMU_VALUE = 0x36;
-    public static final int IMU_CONFIG = 0x37;
-    public static final int IMU_MODE = 0x3C;
+    public static final int IMU_VALUE = 0x33;
+    public static final int IMU_CONFIG = 0x34;
     
-    public static final int IMU_INTERRUPT_VALUE = 0x39;
-    public static final int IMU_INTERRUPT_CONFIG = 0x3A;
+    public static final int QUAT_VALUE = 0x36;
+    public static final int QUAT_CONFIG = 0x37;
+    
+    public static final int IMU_MODE = 0x42;
+    
+    public static final int IMU_INTERRUPT_VALUE = 0x3F;
+    public static final int IMU_INTERRUPT_CONFIG = 0x40;
     
     public void subscribeIMU() {
         bgapi.send_attclient_write_command(connection, IMU_CONFIG, new byte[]{0x01, 0x00});
@@ -149,6 +158,14 @@ public class Traale extends BGAPIDefaultListener {
     
     public void unsubscribeIMU() {
         bgapi.send_attclient_write_command(connection, IMU_CONFIG, new byte[]{0x00, 0x00});
+    }
+    
+    public void subscribeQuaternion() {
+        bgapi.send_attclient_write_command(connection, QUAT_CONFIG, new byte[]{0x01, 0x00});
+    }
+    
+    public void unsubscribeQuaternion() {
+        bgapi.send_attclient_write_command(connection, QUAT_CONFIG, new byte[]{0x00, 0x00});
     }
     
     public void subscribeIMUInterrupt() {
@@ -173,21 +190,31 @@ public class Traale extends BGAPIDefaultListener {
     }
     
     private void imu(byte[] value) {
+        
+        int gx = ((value[1] & 0xFF) << 8) + (value[0] & 0xFF); if (gx > (1<<15)) { gx = gx - (1<<16); }
+        int gy = ((value[3] & 0xFF) << 8) + (value[2] & 0xFF); if (gy > (1<<15)) { gy = gy - (1<<16); }
+        int gz = ((value[5] & 0xFF) << 8) + (value[4] & 0xFF); if (gz > (1<<15)) { gz = gz - (1<<16); }
+        
+        int ax = ((value[7] & 0xFF) << 8) + (value[6] & 0xFF); if (ax > (1<<15)) { ax = ax - (1<<16); }
+        int ay = ((value[9] & 0xFF) << 8) + (value[8] & 0xFF); if (ay > (1<<15)) { ay = ay - (1<<16); }
+        int az = ((value[11] & 0xFF) << 8) + (value[10] & 0xFF); if (az > (1<<15)) { az = az - (1<<16); }
+        
+        int ts = ((value[13] & 0xFF) << 8) + (value[12] & 0xFF);
+        
+        for (TraaleListener l : listeners) {
+            l.imu(ax, ay, az, gx, gy, gz, ts);
+        }
+    }
+    
+    private void quaternion(byte[] value) {
         int w = ((value[1] & 0xFF) << 8) + (value[0] & 0xFF); if (w > (1<<15)) { w = w - (1<<16); }
         int x = ((value[3] & 0xFF) << 8) + (value[2] & 0xFF); if (x > (1<<15)) { x = x - (1<<16); }
         int y = ((value[5] & 0xFF) << 8) + (value[4] & 0xFF); if (y > (1<<15)) { y = y - (1<<16); }
         int z = ((value[7] & 0xFF) << 8) + (value[6] & 0xFF); if (z > (1<<15)) { z = z - (1<<16); }
-        
-        int gx = ((value[9] & 0xFF) << 8) + (value[8] & 0xFF); if (gx > (1<<15)) { gx = gx - (1<<16); }
-        int gy = ((value[11] & 0xFF) << 8) + (value[10] & 0xFF); if (gy > (1<<15)) { gy = gy - (1<<16); }
-        int gz = ((value[13] & 0xFF) << 8) + (value[12] & 0xFF); if (gz > (1<<15)) { gz = gz - (1<<16); }
-        
-        int ax = ((value[15] & 0xFF) << 8) + (value[14] & 0xFF); if (ax > (1<<15)) { ax = ax - (1<<16); }
-        int ay = ((value[17] & 0xFF) << 8) + (value[16] & 0xFF); if (ay > (1<<15)) { ay = ay - (1<<16); }
-        int az = ((value[19] & 0xFF) << 8) + (value[18] & 0xFF); if (az > (1<<15)) { az = az - (1<<16); }
+        int ts = ((value[9] & 0xFF) << 8) + (value[8] & 0xFF);
         
         for (TraaleListener l : listeners) {
-            l.imu(w, x, y, z, ax, ay, az, gx, gy, gz);
+            l.quaternion(w, x, y, z, ts);
         }
     }
     
@@ -206,9 +233,9 @@ public class Traale extends BGAPIDefaultListener {
     /**************************************************************
      * MAGNETOMETER
      **************************************************************/ 
-    public static final int MAG_VALUE = 0x33;
-    public static final int MAG_CONFIG = 0x34;
-    public static final int MAG_INTERVAL = 0x3E;
+    public static final int MAG_VALUE = 0x39;
+    public static final int MAG_CONFIG = 0x3A;
+    public static final int MAG_INTERVAL = 0x3C;
     
     public void subscribeMagnetometer() {
         bgapi.send_attclient_write_command(connection, MAG_CONFIG, new byte[]{0x01, 0x00});
@@ -234,8 +261,10 @@ public class Traale extends BGAPIDefaultListener {
         int y = ((value[3] & 0xFF) << 8) + (value[2] & 0xFF); if (y > (1<<15)) { y = y - (1<<16); }
         int z = ((value[5] & 0xFF) << 8) + (value[4] & 0xFF); if (z > (1<<15)) { z = z - (1<<16); }
         
+        int ts = ((value[7] & 0xFF) << 8) + (value[6] & 0xFF);
+        
         for (TraaleListener l : listeners) {
-            l.magnetometer(x, y, z);
+            l.magnetometer(x, y, z, ts);
         }
     }
     private void magnetometerInterval(byte[] value) {
@@ -260,8 +289,11 @@ public class Traale extends BGAPIDefaultListener {
     }
     
     void battery(byte[] value) {
+        
+        int ts = ((value[2] & 0xFF) << 8) + (value[1] & 0xFF);
+        
         for (TraaleListener l : listeners) {
-            l.battery((int)value[0]);
+            l.battery((int)value[0], ts);
         }
     }
     
@@ -330,6 +362,7 @@ public class Traale extends BGAPIDefaultListener {
                 case HUMIDITY_INTERVAL: humidityInterval(value); break;
                 
                 case IMU_VALUE: imu(value); break;
+                case QUAT_VALUE: quaternion(value); break;
                 case IMU_MODE: imuMode(value); break;
                 case IMU_INTERRUPT_VALUE: imuInterrupt(value); break;
                 

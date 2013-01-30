@@ -25,20 +25,23 @@ package org.thingml.traale.driver;
  */
 public interface TraaleListener {
    
-    void skinTemperature(double temp);
+    void skinTemperature(double temp, int timestamp);
     void skinTemperatureInterval(int value);
     
-    void humidity(int t1, int h1, int t2, int h2);
+    void humidity(int t1, int h1, int t2, int h2, int timestamp);
     void humidityInterval(int value);
     
-    void imu(int w, int x, int y, int z, int ax, int ay, int az, int gx, int gy, int gz);
+    void imu(int ax, int ay, int az, int gx, int gy, int gz, int timestamp);
+    
+    void quaternion(int w, int x, int y, int z, int timestamp);
+    
     void imuMode(int value);
     void imuInterrupt(int value);
     
-    void magnetometer(int x, int y, int z);
+    void magnetometer(int x, int y, int z, int timestamp);
     void magnetometerInterval(int value);
     
-    void battery(int battery);
+    void battery(int battery, int timestamp);
     
     void manufacturer(String value);
     void model_number(String value);
