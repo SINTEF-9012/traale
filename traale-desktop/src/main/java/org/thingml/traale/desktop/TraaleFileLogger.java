@@ -272,5 +272,14 @@ public class TraaleFileLogger implements TraaleListener {
     public void imuInterrupt(int value) {
         if (logging) log.println(currentTimeStamp() + SEPARATOR + "[imuInterrupt]" + SEPARATOR + value);
     }
+
+    @Override
+    public void testPattern(byte[] data, int timestamp) {
+    }
+
+    @Override
+    public void timeSync(int seq, int timestamp) {
+
+    }
     
 }

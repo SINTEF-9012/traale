@@ -274,6 +274,53 @@ public class Traale extends BGAPIDefaultListener {
     }
     
     /**************************************************************
+     * TESTING PATTERN
+     **************************************************************/ 
+    public static final int CLK_VALUE = 0x44;
+    public static final int CLK_CONFIG = 0x45;
+    
+    public void subscribeTimeSync() {
+        bgapi.send_attclient_write_command(connection, CLK_CONFIG, new byte[]{0x01, 0x00});
+        //bgapi.send_attclient_write_command(connection, CLK_VALUE, new byte[]{0x03});
+    }
+    
+    public void unsubscribeTimeSync() {
+        bgapi.send_attclient_write_command(connection, CLK_CONFIG, new byte[]{0x00, 0x00});
+    }
+    
+    void timeSync(byte[] value) {
+        
+        int ts = ((value[2] & 0xFF) << 8) + (value[1] & 0xFF);
+        
+        for (TraaleListener l : listeners) {
+            l.timeSync(value[0], ts);
+        }
+    }
+    
+    /**************************************************************
+     * TESTING PATTERN
+     **************************************************************/ 
+    public static final int TEST_VALUE = 0x47;
+    public static final int TEST_CONFIG = 0x48;
+    
+    public void subscribeTestPattern() {
+        bgapi.send_attclient_write_command(connection, TEST_CONFIG, new byte[]{0x01, 0x00});
+    }
+    
+    public void unsubscribeTestPattern() {
+        bgapi.send_attclient_write_command(connection, TEST_CONFIG, new byte[]{0x00, 0x00});
+    }
+    
+    void testPattern(byte[] value) {
+        
+        int ts = ((value[1] & 0xFF) << 8) + (value[0] & 0xFF);
+        
+        for (TraaleListener l : listeners) {
+            l.testPattern(value, ts);
+        }
+    }
+    
+    /**************************************************************
      * Battery
      **************************************************************/ 
 
@@ -376,6 +423,9 @@ public class Traale extends BGAPIDefaultListener {
                 case SERIAL: serial_number(value); break;
                 case HW_REV: hw_revision(value); break;
                 case FW_REV: fw_revision(value); break;
+                
+                case CLK_VALUE: timeSync(value); break;
+                case TEST_VALUE: testPattern(value); break;
                         
                 default: 
                     System.out.println("[Traale Driver] Got unknown attribute. Handle=" + Integer.toHexString(atthandle) + " val = " + bytesToString(value));

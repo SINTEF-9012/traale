@@ -43,6 +43,11 @@ public interface TraaleListener {
     
     void battery(int battery, int timestamp);
     
+    void testPattern(byte[] data, int timestamp);
+    
+    void timeSync(int seq, int timestamp);
+    
+    
     void manufacturer(String value);
     void model_number(String value);
     void serial_number(String value);
