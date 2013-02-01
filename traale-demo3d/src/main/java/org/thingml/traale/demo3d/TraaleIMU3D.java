@@ -74,7 +74,7 @@ public class TraaleIMU3D extends GLCanvas implements GLEventListener, TraaleList
             // Create the OpenGL rendering canvas
             GLCanvas canvas = new TraaleIMU3D();
             traale.addTraaleListener((TraaleIMU3D)canvas);
-            traale.subscribeIMU();
+            traale.subscribeQuaternion();
             
             canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
  
@@ -322,17 +322,7 @@ public class TraaleIMU3D extends GLCanvas implements GLEventListener, TraaleList
    public void dispose(GLAutoDrawable drawable) { }
 
     @Override
-    public void skinTemperature(double temp) {
-        //throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public void skinTemperatureInterval(int value) {
-        //throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void humidity(int t1, int h1, int t2, int h2) {
         //throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -346,15 +336,7 @@ public class TraaleIMU3D extends GLCanvas implements GLEventListener, TraaleList
     float qy = 0.0f;
     float qz = 0.0f;
     
-    @Override
-    public void imu(int w, int x, int y, int z, int ax, int ay, int az, int gx, int gy, int gz) {
-        //throw new UnsupportedOperationException("Not supported yet.");
-        qw = w/((float)(1<<14));
-        qx = y/((float)(1<<14));
-        qy = z/((float)(1<<14));
-        qz = x/((float)(1<<14));
-        System.out.println("Quaternion = " + qw + "\t" + qx + "\t" + qy + "\t" + qz );
-    }
+
 
     @Override
     public void imuMode(int value) {
@@ -366,20 +348,12 @@ public class TraaleIMU3D extends GLCanvas implements GLEventListener, TraaleList
         //throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override
-    public void magnetometer(int x, int y, int z) {
-        //throw new UnsupportedOperationException("Not supported yet.");
-    }
 
     @Override
     public void magnetometerInterval(int value) {
         //throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override
-    public void battery(int battery) {
-        //throw new UnsupportedOperationException("Not supported yet.");
-    }
 
     @Override
     public void manufacturer(String value) {
@@ -404,5 +378,42 @@ public class TraaleIMU3D extends GLCanvas implements GLEventListener, TraaleList
     @Override
     public void fw_revision(String value) {
         //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void skinTemperature(double temp, int timestamp) {
+    }
+
+    @Override
+    public void humidity(int t1, int h1, int t2, int h2, int timestamp) {
+    }
+    
+    @Override
+    public void imu(int ax, int ay, int az, int gx, int gy, int gz, int timestamp) {
+    }
+
+    @Override
+    public void quaternion(int w, int x, int y, int z, int timestamp) {
+        qw = w/((float)(1<<14));
+        qx = y/((float)(1<<14));
+        qy = z/((float)(1<<14));
+        qz = x/((float)(1<<14));
+        System.out.println("Quaternion = " + qw + "\t" + qx + "\t" + qy + "\t" + qz );
+    }
+
+    @Override
+    public void magnetometer(int x, int y, int z, int timestamp) {
+    }
+
+    @Override
+    public void battery(int battery, int timestamp) {
+    }
+
+    @Override
+    public void testPattern(byte[] data, int timestamp) {
+    }
+
+    @Override
+    public void timeSync(int seq, int timestamp) {
     }
 }
