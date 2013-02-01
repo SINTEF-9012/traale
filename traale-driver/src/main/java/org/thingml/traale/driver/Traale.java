@@ -32,11 +32,11 @@ public class Traale extends BGAPIDefaultListener {
     
     private ArrayList<TraaleListener> listeners = new ArrayList<TraaleListener>();
     
-    public void addTraaleListener(TraaleListener l) {
+    public synchronized void addTraaleListener(TraaleListener l) {
         listeners.add(l);
     }
     
-    public void removeTraaleListener(TraaleListener l) {
+    public synchronized void removeTraaleListener(TraaleListener l) {
         listeners.remove(l);
     }
     
@@ -79,7 +79,7 @@ public class Traale extends BGAPIDefaultListener {
         bgapi.send_attclient_write_command(connection, THERMOMETER_INTERVAL, i);
     }
     
-    private void skinTemperature(byte[] value) {
+    private synchronized void skinTemperature(byte[] value) {
         
         int ts = ((value[6] & 0xFF) << 8) + (value[5] & 0xFF);
         
@@ -87,7 +87,7 @@ public class Traale extends BGAPIDefaultListener {
             l.skinTemperature(getTemperature(value), ts);
         }
     }
-    private void skinTemperatureInterval(byte[] value) {
+    private synchronized void skinTemperatureInterval(byte[] value) {
         for (TraaleListener l : listeners) {
             l.skinTemperatureInterval((value[1]<<8) + (value[0] & 0xFF));
         }
@@ -119,7 +119,7 @@ public class Traale extends BGAPIDefaultListener {
         bgapi.send_attclient_write_command(connection, HUMIDITY_INTERVAL, i);
     }
     
-    private void humidity(byte[] value) {
+    private synchronized void humidity(byte[] value) {
         int t1 = ((value[1] & 0xFF) << 8) + (value[0] & 0xFF); if (t1 > (1<<14)) { t1 = t1 - (1<<15); }
         int h1 = ((value[3] & 0xFF) << 8) + (value[2] & 0xFF);
         int t2 = ((value[5] & 0xFF) << 8) + (value[4] & 0xFF); if (t2 > (1<<14)) { t2 = t2 - (1<<15); }
@@ -131,7 +131,7 @@ public class Traale extends BGAPIDefaultListener {
             l.humidity(t1, h1, t2, h2, ts);
         }
     }
-    private void humidityInterval(byte[] value) {
+    private synchronized void humidityInterval(byte[] value) {
         for (TraaleListener l : listeners) {
             l.humidityInterval((value[1]<<8) + (value[0] & 0xFF));
         }
@@ -189,7 +189,7 @@ public class Traale extends BGAPIDefaultListener {
         bgapi.send_attclient_write_command(connection, IMU_MODE, i);
     }
     
-    private void imu(byte[] value) {
+    private synchronized void imu(byte[] value) {
         
         int gx = ((value[1] & 0xFF) << 8) + (value[0] & 0xFF); if (gx > (1<<15)) { gx = gx - (1<<16); }
         int gy = ((value[3] & 0xFF) << 8) + (value[2] & 0xFF); if (gy > (1<<15)) { gy = gy - (1<<16); }
@@ -206,7 +206,7 @@ public class Traale extends BGAPIDefaultListener {
         }
     }
     
-    private void quaternion(byte[] value) {
+    private synchronized void quaternion(byte[] value) {
         int w = ((value[1] & 0xFF) << 8) + (value[0] & 0xFF); if (w > (1<<15)) { w = w - (1<<16); }
         int x = ((value[3] & 0xFF) << 8) + (value[2] & 0xFF); if (x > (1<<15)) { x = x - (1<<16); }
         int y = ((value[5] & 0xFF) << 8) + (value[4] & 0xFF); if (y > (1<<15)) { y = y - (1<<16); }
@@ -256,7 +256,7 @@ public class Traale extends BGAPIDefaultListener {
         bgapi.send_attclient_write_command(connection, MAG_INTERVAL, i);
     }
     
-    private void magnetometer(byte[] value) {
+    private synchronized void magnetometer(byte[] value) {
         int x = ((value[1] & 0xFF) << 8) + (value[0] & 0xFF); if (x > (1<<15)) { x = x - (1<<16); }
         int y = ((value[3] & 0xFF) << 8) + (value[2] & 0xFF); if (y > (1<<15)) { y = y - (1<<16); }
         int z = ((value[5] & 0xFF) << 8) + (value[4] & 0xFF); if (z > (1<<15)) { z = z - (1<<16); }
@@ -267,7 +267,7 @@ public class Traale extends BGAPIDefaultListener {
             l.magnetometer(x, y, z, ts);
         }
     }
-    private void magnetometerInterval(byte[] value) {
+    private synchronized void magnetometerInterval(byte[] value) {
         for (TraaleListener l : listeners) {
             l.magnetometerInterval((value[1]<<8) + (value[0] & 0xFF));
         }
@@ -279,16 +279,19 @@ public class Traale extends BGAPIDefaultListener {
     public static final int CLK_VALUE = 0x44;
     public static final int CLK_CONFIG = 0x45;
     
+    public void sendTimeRequest(int seqNum) {
+        bgapi.send_attclient_write_command(connection, CLK_VALUE, new byte[]{(byte)seqNum});
+    }
+    
     public void subscribeTimeSync() {
         bgapi.send_attclient_write_command(connection, CLK_CONFIG, new byte[]{0x01, 0x00});
-        //bgapi.send_attclient_write_command(connection, CLK_VALUE, new byte[]{0x03});
     }
     
     public void unsubscribeTimeSync() {
         bgapi.send_attclient_write_command(connection, CLK_CONFIG, new byte[]{0x00, 0x00});
     }
     
-    void timeSync(byte[] value) {
+    private synchronized void timeSync(byte[] value) {
         
         int ts = ((value[2] & 0xFF) << 8) + (value[1] & 0xFF);
         
@@ -311,9 +314,9 @@ public class Traale extends BGAPIDefaultListener {
         bgapi.send_attclient_write_command(connection, TEST_CONFIG, new byte[]{0x00, 0x00});
     }
     
-    void testPattern(byte[] value) {
+    private synchronized void testPattern(byte[] value) {
         
-        int ts = ((value[1] & 0xFF) << 8) + (value[0] & 0xFF);
+        int ts = (value[0] & 0xFF);
         
         for (TraaleListener l : listeners) {
             l.testPattern(value, ts);
@@ -335,7 +338,7 @@ public class Traale extends BGAPIDefaultListener {
         bgapi.send_attclient_write_command(connection, BATTERY_CONFIG, new byte[]{0x00, 0x00});
     }
     
-    void battery(byte[] value) {
+    private synchronized void battery(byte[] value) {
         
         int ts = ((value[2] & 0xFF) << 8) + (value[1] & 0xFF);
         
@@ -358,35 +361,35 @@ public class Traale extends BGAPIDefaultListener {
         bgapi.send_attclient_read_by_handle(connection, MANUFACTURER);
     }
     
-    void manufacturer(byte[] value) {
+    synchronized void manufacturer(byte[] value) {
         for (TraaleListener l : listeners) {
             l.manufacturer(new String(value));
         }
         bgapi.send_attclient_read_by_handle(connection, MODEL);
     }
     
-    void model_number(byte[] value) {
+    synchronized void model_number(byte[] value) {
         for (TraaleListener l : listeners) {
             l.model_number(new String(value));
         }
         bgapi.send_attclient_read_by_handle(connection, SERIAL);
     }
     
-    void serial_number(byte[] value) {
+    synchronized void serial_number(byte[] value) {
         for (TraaleListener l : listeners) {
             l.serial_number(new String(value));
         }
         bgapi.send_attclient_read_by_handle(connection, HW_REV);
     }
     
-    void hw_revision(byte[] value) {
+    synchronized void hw_revision(byte[] value) {
         for (TraaleListener l : listeners) {
             l.hw_revision(new String(value));
         }
         bgapi.send_attclient_read_by_handle(connection, FW_REV);
     }
     
-    void fw_revision(byte[] value) {
+    synchronized void fw_revision(byte[] value) {
         for (TraaleListener l : listeners) {
             l.fw_revision(new String(value));
         }
