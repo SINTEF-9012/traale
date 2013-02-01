@@ -58,16 +58,23 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jButtonConnection" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jButtonTS" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jButtonLog" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jButtonConnection" alignment="0" max="32767" attributes="0"/>
-              <Component id="jTextFieldStatus" alignment="0" max="32767" attributes="0"/>
-              <Component id="jLabel2" alignment="0" min="-2" pref="26" max="-2" attributes="0"/>
+              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                  <Component id="jButtonConnection" alignment="3" max="32767" attributes="0"/>
+                  <Component id="jButtonTS" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <Component id="jButtonLog" alignment="1" max="32767" attributes="0"/>
+              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="jTextFieldStatus" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jLabel2" alignment="0" pref="26" max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -98,6 +105,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonLogActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonTS">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Time..."/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonTSActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

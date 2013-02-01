@@ -22,13 +22,15 @@ package org.thingml.traale.driver;
 import java.util.ArrayList;
 import org.thingml.bglib.BGAPIDefaultListener;
 import org.thingml.bglib.BGAPI;
+import org.thingml.rtsync.core.TimeSynchronizable;
+import org.thingml.rtsync.core.TimeSynchronizer;
 //import org.thingml.bglib.samples.ByteUtils;
 
 /**
  *
  * @author ffl
  */
-public class Traale extends BGAPIDefaultListener {
+public class Traale extends BGAPIDefaultListener implements TimeSynchronizable {
     
     private ArrayList<TraaleListener> listeners = new ArrayList<TraaleListener>();
     
@@ -42,7 +44,19 @@ public class Traale extends BGAPIDefaultListener {
     
     protected BGAPI bgapi;
     protected int connection;
+    
+    // 16 bits timestamps with a 4ms resolution -> 18bits timestamps in ms -> Max value = 0x3FFF
+    private TimeSynchronizer rtsync = new TimeSynchronizer(this, 0x03FFFF);
 
+    public TimeSynchronizer getTimeSynchronizer() {
+        return rtsync;
+    }
+    
+    public long getEpochTimestamp(int ts) {
+        if (rtsync.isRunning()) return rtsync.getSynchronizedEpochTime(ts);
+        else return 0;
+    }
+    
     public Traale(BGAPI bgapi, int connection) {
         this.bgapi = bgapi;
         this.connection = connection;
@@ -51,6 +65,16 @@ public class Traale extends BGAPIDefaultListener {
     
     public void disconnect() {
         bgapi.removeListener(this);
+    }
+    
+    public void startTimeSync() {
+        subscribeTimeSync();
+        rtsync.start_timesync();
+    }
+    
+    public void stopTimeSync() {
+        unsubscribeTimeSync();
+        rtsync.stop_timesync();
     }
     
 
@@ -85,7 +109,7 @@ public class Traale extends BGAPIDefaultListener {
         int ts = ((value[6] & 0xFF) << 8) + (value[5] & 0xFF);
         
         for (TraaleListener l : listeners) {
-            l.skinTemperature(getTemperature(value), ts);
+            l.skinTemperature(getTemperature(value), ts*4);
         }
     }
     private synchronized void skinTemperatureInterval(byte[] value) {
@@ -129,7 +153,7 @@ public class Traale extends BGAPIDefaultListener {
         int ts = ((value[9] & 0xFF) << 8) + (value[8] & 0xFF);
         
         for (TraaleListener l : listeners) {
-            l.humidity(t1, h1, t2, h2, ts);
+            l.humidity(t1, h1, t2, h2, ts*4);
         }
     }
     private synchronized void humidityInterval(byte[] value) {
@@ -203,7 +227,7 @@ public class Traale extends BGAPIDefaultListener {
         int ts = ((value[13] & 0xFF) << 8) + (value[12] & 0xFF);
         
         for (TraaleListener l : listeners) {
-            l.imu(ax, ay, az, gx, gy, gz, ts);
+            l.imu(ax, ay, az, gx, gy, gz, ts*4);
         }
     }
     
@@ -215,7 +239,7 @@ public class Traale extends BGAPIDefaultListener {
         int ts = ((value[9] & 0xFF) << 8) + (value[8] & 0xFF);
         
         for (TraaleListener l : listeners) {
-            l.quaternion(w, x, y, z, ts);
+            l.quaternion(w, x, y, z, ts*4);
         }
     }
     
@@ -265,7 +289,7 @@ public class Traale extends BGAPIDefaultListener {
         int ts = ((value[7] & 0xFF) << 8) + (value[6] & 0xFF);
         
         for (TraaleListener l : listeners) {
-            l.magnetometer(x, y, z, ts);
+            l.magnetometer(x, y, z, ts*4);
         }
     }
     private synchronized void magnetometerInterval(byte[] value) {
@@ -280,6 +304,7 @@ public class Traale extends BGAPIDefaultListener {
     public static final int CLK_VALUE = 0x44;
     public static final int CLK_CONFIG = 0x45;
     
+    @Override
     public void sendTimeRequest(int seqNum) {
         bgapi.send_attclient_write_command(connection, CLK_VALUE, new byte[]{(byte)seqNum});
     }
@@ -296,8 +321,10 @@ public class Traale extends BGAPIDefaultListener {
         
         int ts = ((value[2] & 0xFF) << 8) + (value[1] & 0xFF);
         
+        rtsync.receive_TimeResponse(value[0] & 0xFF, ts*4);
+        
         for (TraaleListener l : listeners) {
-            l.timeSync(value[0], ts);
+            l.timeSync(value[0] & 0xFF, ts*4);
         }
     }
     
@@ -320,7 +347,7 @@ public class Traale extends BGAPIDefaultListener {
         int ts = (value[0] & 0xFF);
         
         for (TraaleListener l : listeners) {
-            l.testPattern(value, ts);
+            l.testPattern(value, ts*4);
         }
     }
     
@@ -344,7 +371,7 @@ public class Traale extends BGAPIDefaultListener {
         int ts = ((value[2] & 0xFF) << 8) + (value[1] & 0xFF);
         
         for (TraaleListener l : listeners) {
-            l.battery((int)value[0], ts);
+            l.battery((int)value[0], ts*4);
         }
     }
     

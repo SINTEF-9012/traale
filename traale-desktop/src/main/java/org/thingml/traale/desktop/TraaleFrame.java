@@ -32,6 +32,7 @@ import javax.swing.UIManager;
 import org.thingml.bglib.BGAPITransport;
 import org.thingml.bglib.BGAPI;
 import org.thingml.rtcharts.swing.GraphBuffer;
+import org.thingml.rtsync.ui.TimeSyncFrame;
 
 /**
  *
@@ -159,6 +160,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
         jLabel2 = new javax.swing.JLabel();
         jTextFieldStatus = new javax.swing.JTextField();
         jButtonLog = new javax.swing.JButton();
+        jButtonTS = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
@@ -311,6 +313,13 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
             }
         });
 
+        jButtonTS.setText("Time...");
+        jButtonTS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTSActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -323,14 +332,19 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonConnection)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonTS)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonLog))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButtonConnection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jTextFieldStatus)
-            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jButtonConnection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonTS))
             .addComponent(jButtonLog, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addComponent(jTextFieldStatus, javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE))
         );
 
         jLabel23.setText("Manufacturer:");
@@ -1459,6 +1473,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
     private void jButtonConnectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConnectionActionPerformed
 
         reset();
+        if (traale != null) traale.stopTimeSync();
         
         bledialog.setVisible(true);
         
@@ -1467,10 +1482,14 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
             traale = new Traale(bledialog.getBgapi(), bledialog.getConnection());
             traale.addTraaleListener(this);
             traale.subscribeBattery();
+            
             if (bitrate != null) bitrate.request_stop();
             bitrate = new BitRateCounter();
             bitrate.start();
             jTextFieldStatus.setText("Connected.");
+            
+            traale.startTimeSync();
+            jCheckBoxSubsTimeSync.setSelected(true);
             
         }
         if(!bledialog.isConnected()) {
@@ -1733,6 +1752,14 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
         tempform.setSize(600, 200);
         tempform.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTSActionPerformed
+        if (traale != null) {
+            TimeSyncFrame f = new TimeSyncFrame(traale.getTimeSynchronizer());
+            f.pack();
+            f.setVisible(true);
+        }
+    }//GEN-LAST:event_jButtonTSActionPerformed
     
     /**
      * @param args the command line arguments
@@ -1771,6 +1798,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
     private javax.swing.JButton jButtonReadIntervalMag;
     private javax.swing.JButton jButtonReadIntervalTemp;
     private javax.swing.JButton jButtonReqInfo;
+    private javax.swing.JButton jButtonTS;
     private javax.swing.JButton jButtonURHum;
     private javax.swing.JButton jButtonURIMU;
     private javax.swing.JButton jButtonURIMU2;
