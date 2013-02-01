@@ -24,7 +24,10 @@ import org.thingml.traale.driver.TraaleListener;
 import org.thingml.traale.driver.Traale;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.UIManager;
 import org.thingml.bglib.BGAPITransport;
 import org.thingml.bglib.BGAPI;
@@ -40,6 +43,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
     private DecimalFormat numFormat = new DecimalFormat("0.00");
     private DecimalFormat imunumFormat = new DecimalFormat("0.00000");
     protected BLEExplorerDialog bledialog = new BLEExplorerDialog();
+    protected BitRateCounter bitrate;
     
     protected Traale traale;
     
@@ -126,6 +130,8 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
         
         jTextFieldPong.setText("N/A");
         jCheckBoxBWTest.setSelected(false);
+        
+        jCheckBoxSubsTimeSync.setSelected(false);
         
         last_ski = -1;
         last_hum = -1;
@@ -271,6 +277,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
         jPanel13 = new javax.swing.JPanel();
         jCheckBoxBWTest = new javax.swing.JCheckBox();
         jButtonBWTestGraphs = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jProgressBarBatt = new javax.swing.JProgressBar();
         jCheckBoxSubscribeBatt = new javax.swing.JCheckBox();
@@ -553,7 +560,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
                 .addComponent(jTextFieldRH1Humid, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel15)
-                .addContainerGap(182, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -627,7 +634,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
                 .addComponent(jTextFieldRH2Humid, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel17)
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -663,9 +670,9 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE))
+                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1015,7 +1022,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jProgressBarGyroX, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
+            .addComponent(jProgressBarGyroX, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jProgressBarGyroY, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jProgressBarGyroZ, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -1251,14 +1258,13 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
         jTextFieldPong.setText("N/A");
 
         jCheckBoxSubsTimeSync.setText("Subscribe Ping");
-        jCheckBoxSubsTimeSync.setActionCommand("Subscribe Ping");
         jCheckBoxSubsTimeSync.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBoxSubsTimeSyncActionPerformed(evt);
             }
         });
 
-        jCheckBoxBWTest.setText("Bandwidth test");
+        jCheckBoxBWTest.setText("Bandwidth test pattern");
         jCheckBoxBWTest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBoxBWTestActionPerformed(evt);
@@ -1272,25 +1278,41 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
             }
         });
 
+        jButton1.setText("BW");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jCheckBoxBWTest)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonBWTestGraphs, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addComponent(jCheckBoxBWTest)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(jButtonBWTestGraphs, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
                 .addContainerGap())
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonBWTestGraphs, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBoxBWTest))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addComponent(jCheckBoxBWTest)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonBWTestGraphs, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
@@ -1445,6 +1467,9 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
             traale = new Traale(bledialog.getBgapi(), bledialog.getConnection());
             traale.addTraaleListener(this);
             traale.subscribeBattery();
+            if (bitrate != null) bitrate.request_stop();
+            bitrate = new BitRateCounter();
+            bitrate.start();
             jTextFieldStatus.setText("Connected.");
             
         }
@@ -1702,6 +1727,12 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
             else traale.unsubscribeTimeSync();
         }
     }//GEN-LAST:event_jCheckBoxSubsTimeSyncActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        BitRateGraphFrame tempform = new BitRateGraphFrame(brate);
+        tempform.setSize(600, 200);
+        tempform.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -1724,6 +1755,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonBWTestGraphs;
     private javax.swing.JButton jButtonConnection;
     private javax.swing.JButton jButtonGraphAcc;
@@ -2137,5 +2169,40 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
     @Override
     public void timeSync(int seq, int timestamp) {
         jTextFieldPong.setText(""+ timestamp + "[" + seq + "]");
+    }
+    
+    protected GraphBuffer brate = new GraphBuffer(100);
+    
+    class BitRateCounter extends Thread {
+    
+        private int update_rate = 100; // 1000 ms
+
+        private boolean stop = false;
+        public void request_stop() {
+            stop = true;
+        }
+
+        public void run() {
+
+           long old_time = System.currentTimeMillis();
+           long old_bytes = traale.getReceivedBytes();
+
+           while (traale != null && !stop) {
+                try {
+                    Thread.sleep(update_rate);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(BitRateCounter.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                long new_time = System.currentTimeMillis();
+                long new_bytes = traale.getReceivedBytes();
+
+                int bitrate = (int)(((new_bytes - old_bytes) * 1000) / (new_time - old_time));
+
+                brate.insertData(bitrate);
+                
+                old_time = new_time;
+                old_bytes = new_bytes;
+           }
+        }
     }
 }

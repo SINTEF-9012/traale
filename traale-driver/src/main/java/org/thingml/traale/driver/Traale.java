@@ -53,6 +53,7 @@ public class Traale extends BGAPIDefaultListener {
         bgapi.removeListener(this);
     }
     
+
     /**************************************************************
      * Skin Temperature
      **************************************************************/ 
@@ -400,9 +401,16 @@ public class Traale extends BGAPIDefaultListener {
      * Receive attribute values
      **************************************************************/ 
 
+    long receivedBytes = 0;
+    
+    public long getReceivedBytes() {
+        return receivedBytes;
+    }
+    
     @Override
     public void receive_attclient_attribute_value(int connection, int atthandle, int type, byte[] value) {
         if (this.connection == connection) {
+            receivedBytes += value.length;
             switch(atthandle) {
                 
                 case THERMOMETER_VALUE: skinTemperature(value); break;
