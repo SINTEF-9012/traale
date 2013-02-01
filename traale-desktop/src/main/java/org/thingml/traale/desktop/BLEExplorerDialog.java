@@ -83,6 +83,13 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
     public BLEExplorerDialog() {
         initComponents();
         jTextFieldSerial.setText(prefs.get("BLED112Serial", ""));
+        
+        
+        jTextFieldIntervalMin.setText(prefs.get("interval_min", "60"));
+        jTextFieldIntervalMax.setText(prefs.get("interval_max", "60"));
+        jTextFieldLatency.setText(prefs.get("latency", "100"));
+        jTextFieldTimeout.setText(prefs.get("timeout", "0"));
+        
     }
 
     /**
@@ -440,6 +447,10 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
             interval_max = Integer.parseInt(jTextFieldIntervalMax.getText());
             latency = Integer.parseInt(jTextFieldLatency.getText());
             timeout = Integer.parseInt(jTextFieldTimeout.getText());
+            prefs.put("interval_min", "" + interval_min);
+            prefs.put("interval_max", "" + interval_max);
+            prefs.put("latency", "" + latency);
+            prefs.put("timeout", "" + timeout);
         }
         catch(Exception e) {
             JOptionPane.showMessageDialog(this, "Invalid connection parameter(s)" ,e.toString(), JOptionPane.ERROR_MESSAGE);
