@@ -2088,7 +2088,6 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
             bank = Math.atan2(2*x*w-2*y*z , -sqx + sqy - sqz + sqw);
         }
         
-        jTextFieldTimeIMU.setText(timestampFormat.format( Calendar.getInstance().getTime()));
         
         jTextFieldQW.setText(""+iw);
         jTextFieldQX.setText(""+ix);
