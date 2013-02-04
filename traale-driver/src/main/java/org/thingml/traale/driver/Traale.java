@@ -207,7 +207,7 @@ public class Traale extends BGAPIDefaultListener implements TimeSynchronizable {
     
     public void setIMUMode(int value) {
         
-        bgapi.send_attclient_write_command(connection, IMU_INTERRUPT_CONFIG, new byte[]{0x01, 0x00});
+        bgapi.send_attclient_write_command(connection, IMU_MODE, new byte[]{0x01, 0x00});
         
         byte[] i = new byte[1];
         i[0] = (byte)(value & 0xFF);
