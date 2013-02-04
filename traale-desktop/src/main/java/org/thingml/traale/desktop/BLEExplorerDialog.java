@@ -65,6 +65,7 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
         if (bgapi != null) {
             bgapi.removeListener(this);
             bgapi.getLowLevelDriver().removeListener(logger);
+            System.out.println("BLE: Rreset BLED112 Dongle");
             bgapi.send_system_reset(0);
             bgapi.disconnect();
         }

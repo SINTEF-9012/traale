@@ -30,6 +30,8 @@ import javax.media.opengl.glu.GLU;
 import com.jogamp.opengl.util.FPSAnimator;
 import com.jogamp.opengl.util.awt.TextRenderer;
 import java.awt.geom.Rectangle2D;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static javax.media.opengl.GL2.*; // GL2 constants
 import org.thingml.traale.desktop.BLEExplorerDialog;
 import org.thingml.traale.driver.Traale;
@@ -92,9 +94,15 @@ public class TraaleIMU3D extends GLCanvas implements GLEventListener, TraaleList
                   new Thread() {
                      @Override
                      public void run() {
+                        System.out.println("Disconecting...");
                         if (traale != null) traale.disconnect();
                         if (dialog != null) dialog.disconnect();
                         if (animator.isStarted()) animator.stop();
+                          try {
+                              Thread.sleep(250); // To give time for everithing to close properly?
+                          } catch (InterruptedException ex) {
+                              Logger.getLogger(TraaleIMU3D.class.getName()).log(Level.SEVERE, null, ex);
+                          }
                         System.exit(0);
                      }
                   }.start();
