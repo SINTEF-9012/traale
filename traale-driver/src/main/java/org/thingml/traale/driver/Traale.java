@@ -32,6 +32,9 @@ import org.thingml.rtsync.core.TimeSynchronizer;
  */
 public class Traale extends BGAPIDefaultListener implements TimeSynchronizable {
     
+    
+    private final int DEFAULT_SUB = 0x01; // 0x01 for notifications and 0x02 for indications
+    
     private ArrayList<TraaleListener> listeners = new ArrayList<TraaleListener>();
     
     public synchronized void addTraaleListener(TraaleListener l) {
@@ -178,7 +181,7 @@ public class Traale extends BGAPIDefaultListener implements TimeSynchronizable {
     public static final int IMU_INTERRUPT_CONFIG = 0x40;
     
     public void subscribeIMU() {
-        bgapi.send_attclient_write_command(connection, IMU_CONFIG, new byte[]{0x01, 0x00});
+        bgapi.send_attclient_write_command(connection, IMU_CONFIG, new byte[]{DEFAULT_SUB, 0x00});
     }
     
     public void unsubscribeIMU() {
@@ -186,7 +189,7 @@ public class Traale extends BGAPIDefaultListener implements TimeSynchronizable {
     }
     
     public void subscribeQuaternion() {
-        bgapi.send_attclient_write_command(connection, QUAT_CONFIG, new byte[]{0x01, 0x00});
+        bgapi.send_attclient_write_command(connection, QUAT_CONFIG, new byte[]{DEFAULT_SUB, 0x00});
     }
     
     public void unsubscribeQuaternion() {
@@ -263,7 +266,7 @@ public class Traale extends BGAPIDefaultListener implements TimeSynchronizable {
     public static final int MAG_INTERVAL = 0x3C;
     
     public void subscribeMagnetometer() {
-        bgapi.send_attclient_write_command(connection, MAG_CONFIG, new byte[]{0x01, 0x00});
+        bgapi.send_attclient_write_command(connection, MAG_CONFIG, new byte[]{DEFAULT_SUB, 0x00});
     }
     
     public void unsubscribeMagnetometer() {
