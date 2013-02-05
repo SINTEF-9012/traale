@@ -153,7 +153,7 @@ private void jButtonRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN
         else return; // abort
     }
     prefs.put("LogFolder", folder.getAbsolutePath());
-    logger = new TraaleFileLogger(folder);
+    logger = new TraaleFileLogger(folder, traale);
     traale.addTraaleListener(logger);
     logger.startLogging();
     jButtonRecord.setEnabled(false);

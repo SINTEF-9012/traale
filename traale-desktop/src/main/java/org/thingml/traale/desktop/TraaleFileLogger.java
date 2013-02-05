@@ -31,6 +31,7 @@ import java.util.Locale;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.thingml.traale.driver.Traale;
 import org.thingml.traale.driver.TraaleListener;
 
 /**
@@ -43,6 +44,9 @@ public class TraaleFileLogger implements TraaleListener {
     private String SEPARATOR = "\t";
     
     protected File folder;
+    
+    protected Traale traale;
+    
     protected boolean logging = false;
     protected boolean request_start = false;
     protected long startTime = 0;
@@ -60,8 +64,9 @@ public class TraaleFileLogger implements TraaleListener {
     protected PrintWriter hum;
     protected PrintWriter mag;
     
-    public TraaleFileLogger(File folder) {
+    public TraaleFileLogger(File folder, Traale traale) {
         this.folder = folder;
+        this.traale = traale;
     }
     
     public boolean isLogging() {
@@ -77,20 +82,20 @@ public class TraaleFileLogger implements TraaleListener {
            log.println("# This file contains one line per data received from the traale unit.");
            
            ski = new PrintWriter(new FileWriter(new File(sFolder, "Traale_ski.txt")));
-           ski.println("Time" + SEPARATOR + "Time (ms)" + SEPARATOR + "dT (ms)" + SEPARATOR + "Timestamp" + SEPARATOR + "Skin Temperature (°C)");
+           ski.println("RXTime" + SEPARATOR + "CorrTime" + SEPARATOR + "RawTime" + SEPARATOR + "dT" + SEPARATOR + "Skin Temperature (°C)");
            
            hum = new PrintWriter(new FileWriter(new File(sFolder, "Traale_hum.txt")));
-           hum.println("Time" + SEPARATOR + "Time (ms)" + SEPARATOR + "dT (ms)" + SEPARATOR + "Timestamp" + SEPARATOR + "T1" + SEPARATOR + "H1" + SEPARATOR + "T2" + SEPARATOR + "H2");
+           hum.println("RXTime" + SEPARATOR + "CorrTime" + SEPARATOR + "RawTime" + SEPARATOR + "dT" + SEPARATOR + "T1" + SEPARATOR + "H1" + SEPARATOR + "T2" + SEPARATOR + "H2");
            
            mag = new PrintWriter(new FileWriter(new File(sFolder, "Traale_mag.txt")));
-           mag.println("Time" + SEPARATOR + "Time (ms)" + SEPARATOR + "dT (ms)" + SEPARATOR + "Timestamp" + SEPARATOR + "Mag. X" + SEPARATOR + "Mag. Y" + SEPARATOR + "Mag. Z");
+           mag.println("RXTime" + SEPARATOR + "CorrTime" + SEPARATOR + "RawTime" + SEPARATOR + "dT" + SEPARATOR + "Mag. X" + SEPARATOR + "Mag. Y" + SEPARATOR + "Mag. Z");
            
            
            imu = new PrintWriter(new FileWriter(new File(sFolder, "Traale_imu.txt")));
-           imu.println("Time" + SEPARATOR + "Time (ms)" + SEPARATOR + "dT (ms)" + SEPARATOR + "Timestamp" + SEPARATOR +  "Acc. X" + SEPARATOR + "Acc. Y" + SEPARATOR + "Acc. Z" + SEPARATOR + "Gyro. X" + SEPARATOR + "Gyro. Y" + SEPARATOR + "Gyro. Z");
+           imu.println("RXTime" + SEPARATOR + "CorrTime" + SEPARATOR + "RawTime" + SEPARATOR + "dT" + SEPARATOR +  "Acc. X" + SEPARATOR + "Acc. Y" + SEPARATOR + "Acc. Z" + SEPARATOR + "Gyro. X" + SEPARATOR + "Gyro. Y" + SEPARATOR + "Gyro. Z");
 
            qat = new PrintWriter(new FileWriter(new File(sFolder, "Traale_qat.txt")));
-           qat.println("Time" + SEPARATOR + "Time (ms)" + SEPARATOR + "dT (ms)" + SEPARATOR + "Timestamp" + SEPARATOR + "Quad. W" + SEPARATOR + "Quad. X" + SEPARATOR + "Quad. Y" + SEPARATOR + "Quad. Z" + SEPARATOR + "Pitch" + SEPARATOR + "Roll" + SEPARATOR + "Yaw");
+           qat.println("RXTime" + SEPARATOR + "CorrTime" + SEPARATOR + "RawTime" + SEPARATOR + "dT" + SEPARATOR + "Quad. W" + SEPARATOR + "Quad. X" + SEPARATOR + "Quad. Y" + SEPARATOR + "Quad. Z" + SEPARATOR + "Pitch" + SEPARATOR + "Roll" + SEPARATOR + "Yaw");
 
            
        } catch (IOException ex) {
@@ -125,47 +130,48 @@ public class TraaleFileLogger implements TraaleListener {
         return timestampFormat.format( Calendar.getInstance().getTime());
     }
     
-    public String currentTimeStamp() {
-        return timestampFormat.format( Calendar.getInstance().getTime()) + SEPARATOR + (System.currentTimeMillis()-startTime);
+    public String currentTimeStamp(int timestamp) {
+        if (timestamp<0 || traale == null) return "" + System.currentTimeMillis() + SEPARATOR + "?" + SEPARATOR + "?";
+        else return "" + System.currentTimeMillis() + SEPARATOR + traale.getEpochTimestamp(timestamp) + SEPARATOR + timestamp;
     }
         
     private DecimalFormat tempFormat = new DecimalFormat("0.00");
     @Override
     public void skinTemperature(double temp, int timestamp) {
         if (logging) {
-            ski.println(currentTimeStamp() + SEPARATOR + (System.currentTimeMillis() - last_ski) + SEPARATOR + timestamp + SEPARATOR + tempFormat.format(temp));
-            log.println(currentTimeStamp() + SEPARATOR + "[skinTemperature]" + SEPARATOR + tempFormat.format(temp));
+            ski.println(currentTimeStamp(timestamp) + SEPARATOR + (System.currentTimeMillis() - last_ski) + SEPARATOR + tempFormat.format(temp));
+            log.println(currentTimeStamp(timestamp) + SEPARATOR + "[skinTemperature]" + SEPARATOR + tempFormat.format(temp));
             last_ski = System.currentTimeMillis();
         }
     }
 
     @Override
     public void skinTemperatureInterval(int value) {
-        if (logging) log.println(currentTimeStamp() + SEPARATOR + "[skinTemperatureInterval]" + SEPARATOR + value);
+        if (logging) log.println(currentTimeStamp(-1) + SEPARATOR + "[skinTemperatureInterval]" + SEPARATOR + value);
     }
 
     @Override
     public void humidity(int t1, int h1, int t2, int h2, int timestamp) {
         if (logging) {
-            hum.println(currentTimeStamp() + SEPARATOR + (System.currentTimeMillis() - last_hum) + SEPARATOR + timestamp + SEPARATOR + tempFormat.format(t1/100.0)+ SEPARATOR + tempFormat.format(h1/100.0)+ SEPARATOR + tempFormat.format(t2/100.0)+ SEPARATOR + tempFormat.format(h2/100.0));
-            log.println(currentTimeStamp() + SEPARATOR + "[humidity]" + SEPARATOR + tempFormat.format(t1/100.0)+ SEPARATOR + tempFormat.format(h1/100.0)+ SEPARATOR + tempFormat.format(t2/100.0)+ SEPARATOR + tempFormat.format(h2/100.0));
+            hum.println(currentTimeStamp(timestamp) + SEPARATOR + (System.currentTimeMillis() - last_hum) + SEPARATOR + tempFormat.format(t1/100.0)+ SEPARATOR + tempFormat.format(h1/100.0)+ SEPARATOR + tempFormat.format(t2/100.0)+ SEPARATOR + tempFormat.format(h2/100.0));
+            log.println(currentTimeStamp(timestamp) + SEPARATOR + "[humidity]" + SEPARATOR + tempFormat.format(t1/100.0)+ SEPARATOR + tempFormat.format(h1/100.0)+ SEPARATOR + tempFormat.format(t2/100.0)+ SEPARATOR + tempFormat.format(h2/100.0));
             last_hum = System.currentTimeMillis();
         }
     }
 
     @Override
     public void humidityInterval(int value) {
-        if (logging) log.println(currentTimeStamp() + SEPARATOR + "[humidityInterval]" + SEPARATOR + value);
+        if (logging) log.println(currentTimeStamp(-1) + SEPARATOR + "[humidityInterval]" + SEPARATOR + value);
     }
 
     @Override
     public void imu(int ax, int ay, int az, int gx, int gy, int gz, int timestamp) {
         if (logging) {
               
-            imu.println(currentTimeStamp() + SEPARATOR + (System.currentTimeMillis() - last_imu) + SEPARATOR + timestamp 
+            imu.println(currentTimeStamp(timestamp) + SEPARATOR + (System.currentTimeMillis() - last_imu) 
                                            + SEPARATOR + ax + SEPARATOR + ay + SEPARATOR + az
                                            + SEPARATOR + gx + SEPARATOR + gy + SEPARATOR + gz);
-            log.println(currentTimeStamp() + SEPARATOR + "[imu]" 
+            log.println(currentTimeStamp(timestamp) + SEPARATOR + "[imu]" 
                                            + SEPARATOR + ax + SEPARATOR + ay + SEPARATOR + az
                                            + SEPARATOR + gx + SEPARATOR + gy + SEPARATOR + gz);
             last_imu = System.currentTimeMillis();
@@ -211,9 +217,9 @@ public class TraaleFileLogger implements TraaleListener {
             int ro = (int)(bank* 180 / Math.PI);
             int ya = (int)(attitude* 180 / Math.PI);
             
-            qat.println(currentTimeStamp() + SEPARATOR + (System.currentTimeMillis() - last_qat) + SEPARATOR + timestamp + SEPARATOR + qw + SEPARATOR + qx + SEPARATOR + qy + SEPARATOR + qz
+            qat.println(currentTimeStamp(timestamp) + SEPARATOR + (System.currentTimeMillis() - last_qat) + SEPARATOR + qw + SEPARATOR + qx + SEPARATOR + qy + SEPARATOR + qz
                                            + SEPARATOR + pi + SEPARATOR + ro + SEPARATOR + ya);
-            log.println(currentTimeStamp() + SEPARATOR + "[qat]" + SEPARATOR + qw + SEPARATOR + qx + SEPARATOR + qy + SEPARATOR + qz
+            log.println(currentTimeStamp(timestamp) + SEPARATOR + "[qat]" + SEPARATOR + qw + SEPARATOR + qx + SEPARATOR + qy + SEPARATOR + qz
                                            + SEPARATOR + pi + SEPARATOR + ro + SEPARATOR + ya);
             last_qat = System.currentTimeMillis();
         }
@@ -221,56 +227,56 @@ public class TraaleFileLogger implements TraaleListener {
 
     @Override
     public void imuMode(int value) {
-        if (logging) log.println(currentTimeStamp() + SEPARATOR + "[imuMode]" + SEPARATOR + value);
+        if (logging) log.println(currentTimeStamp(-1) + SEPARATOR + "[imuMode]" + SEPARATOR + value);
     }
 
     @Override
     public void magnetometer(int x, int y, int z, int timestamp) {
        if (logging) {
-           mag.println(currentTimeStamp() + SEPARATOR + (System.currentTimeMillis() - last_mag) + SEPARATOR + timestamp + SEPARATOR + x + SEPARATOR + y + SEPARATOR + z);
-           log.println(currentTimeStamp() + SEPARATOR + "[magnetometer]" + SEPARATOR + x + SEPARATOR + y + SEPARATOR + z);
+           mag.println(currentTimeStamp(timestamp) + SEPARATOR + (System.currentTimeMillis() - last_mag) + SEPARATOR + x + SEPARATOR + y + SEPARATOR + z);
+           log.println(currentTimeStamp(timestamp) + SEPARATOR + "[magnetometer]" + SEPARATOR + x + SEPARATOR + y + SEPARATOR + z);
            last_mag = System.currentTimeMillis();
        }
     }
 
     @Override
     public void magnetometerInterval(int value) {
-        if (logging) log.println(currentTimeStamp() + SEPARATOR + "[magnetometerInterval]" + SEPARATOR + value);
+        if (logging) log.println(currentTimeStamp(-1) + SEPARATOR + "[magnetometerInterval]" + SEPARATOR + value);
     }
 
     @Override
     public void battery(int battery, int timestamp) {
-        if (logging) log.println(currentTimeStamp() + SEPARATOR + "[battery]" + SEPARATOR + battery + "%" + SEPARATOR + timestamp);
+        if (logging) log.println(currentTimeStamp(timestamp) + SEPARATOR + "[battery]" + SEPARATOR + battery + "%" + SEPARATOR + timestamp);
     }
 
     @Override
     public void manufacturer(String value) {
-        if (logging) log.println(currentTimeStamp() + SEPARATOR + "[manufacturer]" + SEPARATOR + value);
+        if (logging) log.println(currentTimeStamp(-1) + SEPARATOR + "[manufacturer]" + SEPARATOR + value);
     }
 
     @Override
     public void model_number(String value) {
-        if (logging) log.println(currentTimeStamp() + SEPARATOR + "[model_number]" + SEPARATOR + value);
+        if (logging) log.println(currentTimeStamp(-1) + SEPARATOR + "[model_number]" + SEPARATOR + value);
     }
 
     @Override
     public void serial_number(String value) {
-        if (logging) log.println(currentTimeStamp() + SEPARATOR + "[serial_number]" + SEPARATOR + value);
+        if (logging) log.println(currentTimeStamp(-1) + SEPARATOR + "[serial_number]" + SEPARATOR + value);
     }
 
     @Override
     public void hw_revision(String value) {
-        if (logging) log.println(currentTimeStamp() + SEPARATOR + "[hw_revision]" + SEPARATOR + value);
+        if (logging) log.println(currentTimeStamp(-1) + SEPARATOR + "[hw_revision]" + SEPARATOR + value);
     }
 
     @Override
     public void fw_revision(String value) {
-        if (logging) log.println(currentTimeStamp() + SEPARATOR + "[fw_revision]" + SEPARATOR + value);
+        if (logging) log.println(currentTimeStamp(-1) + SEPARATOR + "[fw_revision]" + SEPARATOR + value);
     }
 
     @Override
     public void imuInterrupt(int value) {
-        if (logging) log.println(currentTimeStamp() + SEPARATOR + "[imuInterrupt]" + SEPARATOR + value);
+        if (logging) log.println(currentTimeStamp(-1) + SEPARATOR + "[imuInterrupt]" + SEPARATOR + value);
     }
 
     @Override
