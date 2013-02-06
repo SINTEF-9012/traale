@@ -86,7 +86,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
         jCheckBoxSubscribeBatt.setSelected(true);
         
         jTextFieldTimeIMU.setText("N/A");
-        jTextFieldIMUMode.setText("N/A");
+//        jTextFieldIMUMode.setText("N/A");
         jCheckBoxSubscribeIMU.setSelected(false);
         jCheckBoxSubscribeQuat.setSelected(false);
         jCheckBoxIMUInterrupt.setSelected(false);
@@ -196,9 +196,8 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
         jButtonReadIntervalMag = new javax.swing.JButton();
         jButtonWriteIntervalMag = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
-        jTextFieldIMUMode = new javax.swing.JTextField();
         jButtonReadIntervalIMU = new javax.swing.JButton();
-        jButtonWriteIntervalIMU = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox();
         jPanel21 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -307,7 +306,6 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
         });
 
         jButton1.setText("Bandwidth...");
-        jButton1.setActionCommand("Bandwidth...");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -609,8 +607,6 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
 
         jLabel13.setText("IMU Mode:");
 
-        jTextFieldIMUMode.setText("0");
-
         jButtonReadIntervalIMU.setText("Read");
         jButtonReadIntervalIMU.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -618,10 +614,11 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
             }
         });
 
-        jButtonWriteIntervalIMU.setText("Write");
-        jButtonWriteIntervalIMU.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox1.setEditable(true);
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0: Stop", "1: MPU Standard Mode (default)", "2: 18Hz Accelerometer", "3: 50Hz Accelerometer", "4: 100Hz Accelerometer ", "5: 40Hz Accelerometer (Low PWR)", "6: 10Hz Accelerometer (Low PWR)", "7: 2.5Hz Accelerometer (Low PWR)", "8: 1.25Hz Accelerometer (Low PWR)", " ", " " }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonWriteIntervalIMUActionPerformed(evt);
+                jComboBox1ActionPerformed(evt);
             }
         });
 
@@ -637,28 +634,29 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldIntervalTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldIntervalHumid, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldIntervalMag, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldIMUMode, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel19Layout.createSequentialGroup()
-                        .addComponent(jButtonReadIntervalTemp)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonWriteIntervalTemp))
+                        .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldIntervalTemp, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                            .addComponent(jTextFieldIntervalHumid, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                            .addComponent(jTextFieldIntervalMag, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
+                        .addGap(9, 9, 9)
+                        .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel19Layout.createSequentialGroup()
+                                .addComponent(jButtonReadIntervalTemp)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonWriteIntervalTemp))
+                            .addGroup(jPanel19Layout.createSequentialGroup()
+                                .addComponent(jButtonReadIntervalHumid)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonWriteIntervalHumid))))
                     .addGroup(jPanel19Layout.createSequentialGroup()
-                        .addComponent(jButtonReadIntervalHumid)
+                        .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButtonReadIntervalMag)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonWriteIntervalHumid))
-                    .addGroup(jPanel19Layout.createSequentialGroup()
-                        .addComponent(jButtonReadIntervalMag)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonWriteIntervalMag))
-                    .addGroup(jPanel19Layout.createSequentialGroup()
-                        .addComponent(jButtonReadIntervalIMU)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonWriteIntervalIMU))))
+                        .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButtonWriteIntervalMag, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonReadIntervalIMU, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -682,12 +680,12 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
                     .addComponent(jTextFieldIntervalMag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonReadIntervalMag, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonWriteIntervalMag))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(jTextFieldIMUMode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonReadIntervalIMU, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonWriteIntervalIMU)))
+                    .addComponent(jLabel13))
+                .addContainerGap())
         );
 
         jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder("Timing"));
@@ -865,21 +863,18 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
         jProgressBarMagX.setForeground(new java.awt.Color(255, 102, 0));
         jProgressBarMagX.setMaximum(2048);
         jProgressBarMagX.setMinimum(-2047);
-        jProgressBarMagX.setPreferredSize(new java.awt.Dimension(148, 14));
         jProgressBarMagX.setString("N/A");
         jProgressBarMagX.setStringPainted(true);
 
         jProgressBarMagY.setForeground(new java.awt.Color(255, 102, 0));
         jProgressBarMagY.setMaximum(2048);
         jProgressBarMagY.setMinimum(-2047);
-        jProgressBarMagY.setPreferredSize(new java.awt.Dimension(148, 14));
         jProgressBarMagY.setString("N/A");
         jProgressBarMagY.setStringPainted(true);
 
         jProgressBarMagZ.setForeground(new java.awt.Color(255, 102, 0));
         jProgressBarMagZ.setMaximum(2048);
         jProgressBarMagZ.setMinimum(-2047);
-        jProgressBarMagZ.setPreferredSize(new java.awt.Dimension(148, 14));
         jProgressBarMagZ.setString("N/A");
         jProgressBarMagZ.setStringPainted(true);
 
@@ -1112,9 +1107,9 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonGraphHumid))
         );
@@ -1475,7 +1470,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1613,14 +1608,6 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
             }
         }
     }//GEN-LAST:event_jCheckBoxSubscribeIMUActionPerformed
-
-    private void jButtonWriteIntervalIMUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonWriteIntervalIMUActionPerformed
-        if (traale != null) traale.setIMUMode(Integer.parseInt(jTextFieldIMUMode.getText()));
-    }//GEN-LAST:event_jButtonWriteIntervalIMUActionPerformed
-
-    private void jButtonReadIntervalIMUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReadIntervalIMUActionPerformed
-        if (traale != null) traale.readIMUMode();
-    }//GEN-LAST:event_jButtonReadIntervalIMUActionPerformed
 
     private void jButtonGraphTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGraphTempActionPerformed
     SkinTempGraphFrame tempform = new SkinTempGraphFrame(buff_skinTemperature);
@@ -1791,6 +1778,31 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
         tempform.setSize(400, 300*3);
         tempform.setVisible(true);
     }//GEN-LAST:event_jButtonGraphMag1ActionPerformed
+
+    private void jButtonWriteIntervalIMUActionPerformed(java.awt.event.ActionEvent evt) {                                                        
+        String mode = jComboBox1.getSelectedItem().toString();
+        if (mode.indexOf(":") > 0) mode = mode.substring(0,mode.indexOf(":"));
+        int m = Integer.parseInt(mode);
+        
+        if (traale != null) traale.setIMUMode(m);
+    }                                                       
+
+    private void jButtonReadIntervalIMUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReadIntervalIMUActionPerformed
+        if (traale != null) traale.readIMUMode();
+    }//GEN-LAST:event_jButtonReadIntervalIMUActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        String mode = jComboBox1.getSelectedItem().toString();
+        if (mode.indexOf(":") > 0) mode = mode.substring(0,mode.indexOf(":"));
+        try {
+            int m = Integer.parseInt(mode);
+            if (traale != null) traale.setIMUMode(m);
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+    }//GEN-LAST:event_jComboBox1ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -1837,7 +1849,6 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
     private javax.swing.JButton jButtonURMag;
     private javax.swing.JButton jButtonURTemp;
     private javax.swing.JButton jButtonWriteIntervalHumid;
-    private javax.swing.JButton jButtonWriteIntervalIMU;
     private javax.swing.JButton jButtonWriteIntervalMag;
     private javax.swing.JButton jButtonWriteIntervalTemp;
     private javax.swing.JCheckBox jCheckBoxBWTest;
@@ -1849,6 +1860,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
     private javax.swing.JCheckBox jCheckBoxSubscribeMag;
     private javax.swing.JCheckBox jCheckBoxSubscribeQuat;
     private javax.swing.JCheckBox jCheckBoxSubscribeTemp;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1916,7 +1928,6 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
     private javax.swing.JProgressBar jProgressBarRH2Temp;
     private javax.swing.JProgressBar jProgressBarValueTemp;
     private javax.swing.JTextField jTextFieldIMUInterrupt;
-    private javax.swing.JTextField jTextFieldIMUMode;
     private javax.swing.JTextField jTextFieldInfoFW;
     private javax.swing.JTextField jTextFieldInfoHW;
     private javax.swing.JTextField jTextFieldInfoManuf;
@@ -2012,7 +2023,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
     }
 
     public void imuInterval(int value) {
-        jTextFieldIMUMode.setText("" + value);
+        //jTextFieldIMUMode.setText("" + value);
     }
 
     DataBuffer magxy = new DataBuffer(2, 100);
@@ -2183,7 +2194,16 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
 
     @Override
     public void imuMode(int value) {
-        jTextFieldIMUMode.setText("" + value);
+        //jTextFieldIMUMode.setText("" + value);
+        int mode = value;
+        
+        if (mode < 0 || mode > 8) {
+            jComboBox1.setSelectedItem("" + value);
+        }
+        else {
+            jComboBox1.setSelectedIndex(value);
+        }
+
     }
 
     @Override
