@@ -80,7 +80,18 @@ public class Traale extends BGAPIDefaultListener implements TimeSynchronizable {
         rtsync.stop_timesync();
     }
     
-
+    public static final int ALERT_LEVEL = 0x4B;
+    
+    public void readAlertLevel() {
+        bgapi.send_attclient_read_by_handle(connection, ALERT_LEVEL);
+    }
+    
+    public void setAlertLevel(int value) {
+        byte[] i = new byte[1];
+        i[0] = (byte)(value & 0xFF);
+        bgapi.send_attclient_write_command(connection, ALERT_LEVEL, i);
+    }
+    
     /**************************************************************
      * Skin Temperature
      **************************************************************/ 
@@ -209,9 +220,6 @@ public class Traale extends BGAPIDefaultListener implements TimeSynchronizable {
     }
     
     public void setIMUMode(int value) {
-        
-        bgapi.send_attclient_write_command(connection, IMU_MODE, new byte[]{0x01, 0x00});
-        
         byte[] i = new byte[1];
         i[0] = (byte)(value & 0xFF);
         bgapi.send_attclient_write_command(connection, IMU_MODE, i);
@@ -249,6 +257,12 @@ public class Traale extends BGAPIDefaultListener implements TimeSynchronizable {
     private void imuMode(byte[] value) {
         for (TraaleListener l : listeners) {
             l.imuMode((value[0] & 0xFF));
+        }
+    }
+    
+    private void alertLevel(byte[] value) {
+        for (TraaleListener l : listeners) {
+            l.alertLevel((value[0] & 0xFF));
         }
     }
     
@@ -467,6 +481,8 @@ public class Traale extends BGAPIDefaultListener implements TimeSynchronizable {
                 
                 case CLK_VALUE: timeSync(value); break;
                 case TEST_VALUE: testPattern(value); break;
+                    
+                case ALERT_LEVEL: alertLevel(value); break;
                         
                 default: 
                     System.out.println("[Traale Driver] Got unknown attribute. Handle=" + Integer.toHexString(atthandle) + " val = " + bytesToString(value));

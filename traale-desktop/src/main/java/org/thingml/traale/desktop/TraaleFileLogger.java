@@ -287,5 +287,10 @@ public class TraaleFileLogger implements TraaleListener {
     public void timeSync(int seq, int timestamp) {
 
     }
+
+    @Override
+    public void alertLevel(int value) {
+        
+    }
     
 }

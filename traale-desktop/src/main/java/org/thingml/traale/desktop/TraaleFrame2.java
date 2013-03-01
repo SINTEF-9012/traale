@@ -2236,6 +2236,11 @@ public class TraaleFrame2 extends javax.swing.JFrame implements TraaleListener {
     }
     
     protected GraphBuffer brate = new GraphBuffer(100);
+
+    @Override
+    public void alertLevel(int value) {
+       
+    }
     
     class BitRateCounter extends Thread {
     

@@ -54,4 +54,6 @@ public interface TraaleListener {
     void hw_revision(String value);
     void fw_revision(String value);
     
+    void alertLevel(int value);
+    
 }
