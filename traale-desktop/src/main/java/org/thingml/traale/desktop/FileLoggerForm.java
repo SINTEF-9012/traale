@@ -28,6 +28,7 @@ package org.thingml.traale.desktop;
 import java.io.File;
 import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import org.thingml.traale.driver.Traale;
 
 /**
@@ -147,6 +148,10 @@ private void jButtonRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     File folder = new File(jTextFieldFolder.getText());
     if (!folder.exists() || !folder.isDirectory()) {
         if (chooser.showDialog(this, "OK") == JFileChooser.APPROVE_OPTION) {
+             if (!chooser.getSelectedFile().exists() || !chooser.getSelectedFile().isDirectory()) {
+                JOptionPane.showMessageDialog(null, "Please select an existing folder.", "Folder not found", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             jTextFieldFolder.setText(chooser.getSelectedFile().getAbsolutePath());
             folder = chooser.getSelectedFile();
         }
