@@ -424,4 +424,9 @@ public class TraaleIMU3D extends GLCanvas implements GLEventListener, TraaleList
     @Override
     public void timeSync(int seq, int timestamp) {
     }
+
+    @Override
+    public void alertLevel(int value) {
+        
+    }
 }
