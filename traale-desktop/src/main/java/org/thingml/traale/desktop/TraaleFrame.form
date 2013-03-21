@@ -664,7 +664,7 @@
           <Properties>
             <Property name="editable" type="boolean" value="true"/>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="11">
+              <StringArray count="10">
                 <StringItem index="0" value="0: Stop"/>
                 <StringItem index="1" value="1: MPU Standard Mode (default)"/>
                 <StringItem index="2" value="2: 18Hz Accelerometer"/>
@@ -674,8 +674,7 @@
                 <StringItem index="6" value="6: 10Hz Accelerometer (Low PWR)"/>
                 <StringItem index="7" value="7: 2.5Hz Accelerometer (Low PWR)"/>
                 <StringItem index="8" value="8: 1.25Hz Accelerometer (Low PWR)"/>
-                <StringItem index="9" value=" "/>
-                <StringItem index="10" value=" "/>
+                <StringItem index="9" value="9: MPU Standard Mode - g compensated"/>
               </StringArray>
             </Property>
           </Properties>

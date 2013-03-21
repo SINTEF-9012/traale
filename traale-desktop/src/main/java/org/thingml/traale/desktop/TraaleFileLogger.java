@@ -76,6 +76,14 @@ public class TraaleFileLogger implements TraaleListener {
     public void startLogging() {
        String sName = createSessionName(); 
        File sFolder = new File(folder, sName);
+       
+       // To avoid overwriting an exiting folder (in case several logs are created at the same time)
+       int i=1;
+       while (sFolder.exists()) {
+           sFolder = new File(folder, sName + "-" + i);
+           i++;
+       }
+       
        sFolder.mkdir();
        try {
            log = new PrintWriter(new FileWriter(new File(sFolder, "Traale_log.txt")));

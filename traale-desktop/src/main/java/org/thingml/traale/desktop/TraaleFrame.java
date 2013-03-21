@@ -619,7 +619,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
         });
 
         jComboBox1.setEditable(true);
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0: Stop", "1: MPU Standard Mode (default)", "2: 18Hz Accelerometer", "3: 50Hz Accelerometer", "4: 100Hz Accelerometer ", "5: 40Hz Accelerometer (Low PWR)", "6: 10Hz Accelerometer (Low PWR)", "7: 2.5Hz Accelerometer (Low PWR)", "8: 1.25Hz Accelerometer (Low PWR)", " ", " " }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0: Stop", "1: MPU Standard Mode (default)", "2: 18Hz Accelerometer", "3: 50Hz Accelerometer", "4: 100Hz Accelerometer ", "5: 40Hz Accelerometer (Low PWR)", "6: 10Hz Accelerometer (Low PWR)", "7: 2.5Hz Accelerometer (Low PWR)", "8: 1.25Hz Accelerometer (Low PWR)", "9: MPU Standard Mode - g compensated" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
