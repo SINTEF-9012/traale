@@ -1538,6 +1538,8 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
             traale.startTimeSync();
             jCheckBoxSubsTimeSync.setSelected(true);
             
+            traale.requestDeviceInfo();
+            
         }
         if(!bledialog.isConnected()) {
 

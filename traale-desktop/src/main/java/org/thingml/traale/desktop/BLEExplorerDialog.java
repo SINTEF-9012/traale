@@ -112,7 +112,6 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jListDevices = new javax.swing.JList();
-        jButtonStopDiscover = new javax.swing.JButton();
         jButtonDiscover = new javax.swing.JButton();
         jButtonDisconnect = new javax.swing.JButton();
         jButtonConnect = new javax.swing.JButton();
@@ -167,11 +166,11 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldSerial)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonBLED112Conn, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonBLED112Disc, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jButtonBLED112Conn, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,17 +185,20 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
         jLabel2.setText("BLE Devices:");
 
         jListDevices.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(jListDevices);
-
-        jButtonStopDiscover.setText("Stop");
-        jButtonStopDiscover.setEnabled(false);
-        jButtonStopDiscover.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonStopDiscoverActionPerformed(evt);
+        jListDevices.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListDevicesMouseClicked(evt);
             }
         });
+        jListDevices.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jListDevicesValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jListDevices);
 
         jButtonDiscover.setText("Discover");
+        jButtonDiscover.setEnabled(false);
         jButtonDiscover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDiscoverActionPerformed(evt);
@@ -204,6 +206,7 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
         });
 
         jButtonDisconnect.setText("Disconnect");
+        jButtonDisconnect.setEnabled(false);
         jButtonDisconnect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDisconnectActionPerformed(evt);
@@ -211,15 +214,18 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
         });
 
         jButtonConnect.setText("Connect");
+        jButtonConnect.setEnabled(false);
         jButtonConnect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonConnectActionPerformed(evt);
             }
         });
 
+        jTextFieldConnStatus.setEditable(false);
         jTextFieldConnStatus.setText("No connection.");
 
         jButtonRefresh.setText("Refresh");
+        jButtonRefresh.setEnabled(false);
         jButtonRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRefreshActionPerformed(evt);
@@ -228,7 +234,7 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
 
         jLabel4.setText("interval_min:");
 
-        jTextFieldIntervalMin.setText("60");
+        jTextFieldIntervalMin.setText("6");
         jTextFieldIntervalMin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldIntervalMinActionPerformed(evt);
@@ -237,7 +243,7 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
 
         jLabel5.setText("interval_max:");
 
-        jTextFieldIntervalMax.setText("60");
+        jTextFieldIntervalMax.setText("6");
 
         jLabel6.setText("latency:");
 
@@ -260,41 +266,36 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButtonRefresh)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldConnStatus)))
+                        .addComponent(jButtonRefresh)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButtonConnect, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonDisconnect, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButtonDiscover, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonStopDiscover, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jTextFieldConnStatus)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonConnect, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonDisconnect, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldIntervalMin)
+                        .addComponent(jTextFieldIntervalMin, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldIntervalMax)
+                        .addComponent(jTextFieldIntervalMax, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldLatency)
+                        .addComponent(jTextFieldLatency, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldTimeout)))
+                        .addComponent(jTextFieldTimeout, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonDiscover, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -304,9 +305,7 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButtonStopDiscover)
-                        .addComponent(jButtonDiscover))
+                    .addComponent(jButtonDiscover)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -336,6 +335,7 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
 
         jLabel1.setText("Dongle:");
 
+        jTextFieldBLED112.setEditable(false);
         jTextFieldBLED112.setText("Not Connected.");
 
         jCheckBoxDebug.setText("Debug BLED112");
@@ -391,6 +391,7 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
     private void jButtonBLED112ConnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBLED112ConnActionPerformed
         jButtonBLED112Conn.setEnabled(false);
         jButtonBLED112Disc.setEnabled(false);
+        jButtonDiscover.setEnabled(false);
         port  = BLED112.connectSerial(jTextFieldSerial.getText().trim());
    
         if (port != null) {
@@ -402,7 +403,15 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
                 Thread.sleep(250);
                 bgapi.send_system_get_info();
                 jButtonBLED112Disc.setEnabled(true);
+                jButtonDiscover.setEnabled(true);
                 if (jCheckBoxDebug.isSelected()) bgapi.getLowLevelDriver().addListener(logger);
+                
+                // Run discovery
+                devList.clear();
+                jListDevices.setModel(devList);
+                bgapi.send_gap_set_scan_parameters(10, 250, 1);
+                bgapi.send_gap_discover(1);
+                
                 
             } catch (Exception ex) {
                 Logger.getLogger(BLEExplorerDialog.class.getName()).log(Level.SEVERE, null, ex);
@@ -419,6 +428,13 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
     private void jButtonBLED112DiscActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBLED112DiscActionPerformed
         jButtonBLED112Conn.setEnabled(false);
         jButtonBLED112Disc.setEnabled(false);
+        jButtonDiscover.setEnabled(false);
+        jButtonConnect.setEnabled(false);
+        jButtonRefresh.setEnabled(false);
+        jButtonDisconnect.setEnabled(false);
+        devList.clear();
+        jListDevices.setModel(devList);
+        connection = -1;
         disconnect();
         jTextFieldBLED112.setText("Disconnected.");
         jButtonBLED112Conn.setEnabled(true);
@@ -429,14 +445,17 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
         jListDevices.setModel(devList);
         bgapi.send_gap_set_scan_parameters(10, 250, 1);
         bgapi.send_gap_discover(1);
-        jButtonDiscover.setEnabled(false);
-        jButtonStopDiscover.setEnabled(true);
+        jButtonConnect.setEnabled(false);
+        //jButtonDiscover.setEnabled(false);
     }//GEN-LAST:event_jButtonDiscoverActionPerformed
 
     private void jButtonConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConnectActionPerformed
-        
-        BLEDevice d = (BLEDevice) jListDevices.getSelectedValue();
-        if (d == null) return;
+        do_connect();
+    }//GEN-LAST:event_jButtonConnectActionPerformed
+
+    private void do_connect() {
+        bledevice = (BLEDevice) jListDevices.getSelectedValue();
+        if (bledevice == null) return;
         
         int interval_min;
         int interval_max;
@@ -461,32 +480,38 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
         
         jButtonConnect.setEnabled(false);
         jButtonDisconnect.setEnabled(true);
+        jButtonRefresh.setEnabled(true);
+        jButtonDiscover.setEnabled(false);
        
-        bgapi.send_gap_connect_direct(BDAddr.fromString(d.getAddress()), 1, interval_min, interval_max, latency,timeout);
-    }//GEN-LAST:event_jButtonConnectActionPerformed
-
-    private void jButtonStopDiscoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStopDiscoverActionPerformed
-        bgapi.send_gap_end_procedure();
-        jButtonStopDiscover.setEnabled(false);
-        jButtonDiscover.setEnabled(true);
-        
-    }//GEN-LAST:event_jButtonStopDiscoverActionPerformed
-
+        bgapi.send_gap_connect_direct(BDAddr.fromString(bledevice.getAddress()), 1, interval_min, interval_max, latency,timeout);
+    }
+    
+    
     private void jButtonDisconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDisconnectActionPerformed
+        do_disconnect();
+    }//GEN-LAST:event_jButtonDisconnectActionPerformed
+
+    public void do_disconnect() {
         bledevice = null;
         if (connection >= 0) {
             bgapi.send_connection_disconnect(connection);
         }
+        connection = -1;
         jTextFieldConnStatus.setText("Diconnected.");
         jButtonConnect.setEnabled(true);
+        jButtonRefresh.setEnabled(false);
         jButtonDisconnect.setEnabled(false);
-
-    }//GEN-LAST:event_jButtonDisconnectActionPerformed
-
+        jButtonDiscover.setEnabled(true);
+    }
+    
     private void jButtonRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshActionPerformed
         if (connection < 0) {
             
             jTextFieldConnStatus.setText("Not Connected.");
+            jButtonConnect.setEnabled(true);
+            jButtonRefresh.setEnabled(false);
+            jButtonDisconnect.setEnabled(false);
+            jButtonDiscover.setEnabled(true);
         }
         else {
             bgapi.send_connection_get_status(connection);
@@ -521,6 +546,36 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
     private void jTextFieldLatencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldLatencyActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldLatencyActionPerformed
+
+    private void jListDevicesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListDevicesValueChanged
+        if (!evt.getValueIsAdjusting()) {
+            if (jListDevices.getSelectedValue() != null && connection < 0) {
+                jButtonConnect.setEnabled(true);
+                jButtonDisconnect.setEnabled(false);
+                jButtonDiscover.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_jListDevicesValueChanged
+
+    boolean autoclose = false;
+    
+    private void jListDevicesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListDevicesMouseClicked
+        if (evt.getClickCount() > 1) {
+            
+            if (connection >=0) {
+                do_disconnect();
+                try {
+                Thread.sleep(250);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(BLEExplorerDialog.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            }
+            
+            autoclose = true;
+            do_connect();
+
+        }
+    }//GEN-LAST:event_jListDevicesMouseClicked
     /*
      * GATT DISCOVERY
      */
@@ -591,15 +646,21 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
                 bledevice = devList.getFromAddress(address.toString());
                 this.connection = conn;
                 jButtonConnect.setEnabled(false);
+                jButtonRefresh.setEnabled(true);
                 jButtonDisconnect.setEnabled(true);
+                jButtonDiscover.setEnabled(false);
+                if (autoclose) this.setVisible(false);
             }
             else {
                 System.out.println("Connection lost!");
                 connection = -1;
                 bledevice = null;
                 jButtonConnect.setEnabled(true);
+                jButtonRefresh.setEnabled(false);
                 jButtonDisconnect.setEnabled(false);
+                jButtonDiscover.setEnabled(true);
             } 
+            autoclose = false;
         }
 	public void receive_connection_version_ind(int connection, int vers_nr, int comp_id, int sub_vers_nr) {}
 	public void receive_connection_feature_ind(int connection, byte[] features) {}
@@ -743,7 +804,6 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
     private javax.swing.JButton jButtonDisconnect;
     private javax.swing.JButton jButtonDiscover;
     private javax.swing.JButton jButtonRefresh;
-    private javax.swing.JButton jButtonStopDiscover;
     private javax.swing.JCheckBox jCheckBoxDebug;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
