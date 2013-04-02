@@ -385,6 +385,11 @@ public class Traale extends BGAPIDefaultListener implements TimeSynchronizable {
     
     private synchronized void battery(byte[] value) {
         
+        if (value.length < 3) {
+            System.err.println("ISenseU Error: battery value length " + value.length + "instead of 3 (1 byte for the batery level + 2 bytes for timestamps" );
+            return;
+        }
+        
         int ts = ((value[2] & 0xFF) << 8) + (value[1] & 0xFF);
         
         for (TraaleListener l : listeners) {

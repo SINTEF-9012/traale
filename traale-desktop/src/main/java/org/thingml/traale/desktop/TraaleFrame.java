@@ -156,7 +156,6 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
     } 
     
     public void setSensor(Traale sensor) {
-        
         reset();
         traale = sensor;
         traale.addTraaleListener(this);
