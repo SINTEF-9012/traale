@@ -62,6 +62,11 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
     }
     
     public void disconnect() {
+        
+        if (isConnected()) {
+            do_disconnect();
+        }
+        
         if (bgapi != null) {
             bgapi.removeListener(this);
             bgapi.getLowLevelDriver().removeListener(logger);
@@ -86,8 +91,8 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
         jTextFieldSerial.setText(prefs.get("BLED112Serial", ""));
         
         
-        jTextFieldIntervalMin.setText(prefs.get("interval_min", "60"));
-        jTextFieldIntervalMax.setText(prefs.get("interval_max", "60"));
+        jTextFieldIntervalMin.setText(prefs.get("interval_min", "6"));
+        jTextFieldIntervalMax.setText(prefs.get("interval_max", "6"));
         jTextFieldLatency.setText(prefs.get("latency", "100"));
         jTextFieldTimeout.setText(prefs.get("timeout", "0"));
         

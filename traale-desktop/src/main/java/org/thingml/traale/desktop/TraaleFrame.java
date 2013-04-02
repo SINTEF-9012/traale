@@ -58,6 +58,14 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
         bledialog.setModal(true);
     }
     
+    boolean hideMode = false;
+    
+    public void disableConnectionButton() {
+        jButtonConnection.setEnabled(false);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        hideMode = true;
+    }
+    
     protected void reset() {
         if (traale != null) { 
             traale.removeTraaleListener(this);
@@ -146,6 +154,17 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
             logform.dispose();
          }
     } 
+    
+    public void setSensor(Traale sensor) {
+        
+        reset();
+        traale = sensor;
+        traale.addTraaleListener(this);
+        
+        if (bitrate != null) bitrate.request_stop();
+        bitrate = new BitRateCounter();
+        bitrate.start();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -1733,6 +1752,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if (hideMode) return;
         System.out.println("Closing connections.");
         if (traale!=null) traale.disconnect();
         if (bledialog!=null) bledialog.disconnect();
