@@ -73,19 +73,8 @@ public class TraaleFileLogger implements TraaleListener {
         return logging;
     }
     
-    public void startLogging() {
-       String sName = createSessionName(); 
-       File sFolder = new File(folder, sName);
-       
-       // To avoid overwriting an exiting folder (in case several logs are created at the same time)
-       int i=1;
-       while (sFolder.exists()) {
-           sFolder = new File(folder, sName + "-" + i);
-           i++;
-       }
-       
-       sFolder.mkdir();
-       try {
+    public void startLoggingInFolder(File sFolder) {
+        try {
            log = new PrintWriter(new FileWriter(new File(sFolder, "Traale_log.txt")));
            log.println("# This file contains one line per data received from the traale unit.");
            
@@ -115,6 +104,21 @@ public class TraaleFileLogger implements TraaleListener {
        last_imu = System.currentTimeMillis();
        startTime = System.currentTimeMillis();
        logging = true;
+    }
+    
+    public void startLogging() {
+       String sName = createSessionName(); 
+       File sFolder = new File(folder, sName);
+       
+       // To avoid overwriting an exiting folder (in case several logs are created at the same time)
+       int i=1;
+       while (sFolder.exists()) {
+           sFolder = new File(folder, sName + "-" + i);
+           i++;
+       }
+       
+       sFolder.mkdir();
+       startLoggingInFolder(sFolder);
     }
     
     public void stopLogging() {
