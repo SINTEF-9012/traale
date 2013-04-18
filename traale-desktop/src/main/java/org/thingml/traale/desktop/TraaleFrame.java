@@ -1687,7 +1687,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
     }//GEN-LAST:event_jButtonGraphGyroActionPerformed
 
     private void jButtonGraphAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGraphAccActionPerformed
-        ThreeAxisGraphFrame tempform = new ThreeAxisGraphFrame(buff_ax, buff_ay, buff_az, "Accelerometers", new Color(255,204,0) , -2047, 2048, 256);
+        ThreeAxisGraphFrame tempform = new ThreeAxisGraphFrame(buff_ax, buff_ay, buff_az, "Accelerometers", new Color(255,204,0) , -2047, 2048, 512);
         tempform.setSize(600, 200*3);
         tempform.setVisible(true);
     }//GEN-LAST:event_jButtonGraphAccActionPerformed
