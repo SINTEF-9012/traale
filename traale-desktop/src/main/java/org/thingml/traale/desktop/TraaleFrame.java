@@ -2283,6 +2283,7 @@ public class TraaleFrame extends javax.swing.JFrame implements TraaleListener {
     @Override
     public void serial_number(String value) {
         jTextFieldInfoSerial.setText(value);
+        setTitle("ISenseU [" + value + "]");
     }
 
     @Override

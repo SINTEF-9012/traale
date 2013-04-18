@@ -331,7 +331,7 @@ public class BLEExplorerDialog extends javax.swing.JDialog implements BGAPIListe
                 .addGap(0, 12, Short.MAX_VALUE))
         );
 
-        jButton2.setText("Close");
+        jButton2.setText("OK");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
