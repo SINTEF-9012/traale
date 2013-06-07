@@ -102,7 +102,7 @@ public class VirtualOscComm {
             long txEpoc = System.currentTimeMillis();
             // System.out.println("txEpoc = " + txEpoc);
             // System.out.println("valEpoc = " + valEpoc);
-            String sendStr = new String("#" + " " + this.channel + " " + txEpoc + " " + valEpoc + " " + val);
+            String sendStr = new String("#" + " " + this.channel + " " + txEpoc + " " + valEpoc + " " + String.format("%e", val));
             //System.out.println(sendStr);
             byte[] sendData;
             sendData = sendStr.getBytes();
@@ -121,7 +121,7 @@ public class VirtualOscComm {
             long txEpoc = System.currentTimeMillis();
             // System.out.println("txEpoc = " + txEpoc);
             // System.out.println("valEpoc = " + valEpoc);
-            String sendStr = new String("#" + " " + this.channel + " " + txEpoc + " " + txEpoc + " " + val);
+            String sendStr = new String("#" + " " + this.channel + " " + txEpoc + " " + txEpoc + " " + String.format("%e", val));
             //System.out.println(sendStr);
             byte[] sendData;
             sendData = sendStr.getBytes();

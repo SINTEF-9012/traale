@@ -10,15 +10,15 @@ import org.thingml.traale.driver.Traale;
  *
  * @author steffend
  */
-public class OscLoggerForm extends javax.swing.JFrame {
+public class UDPLoggerForm extends javax.swing.JFrame {
     protected String unitName;
-    protected TraaleOscLogger logger;
+    protected TraaleUDPLogger logger;
     protected Traale traale;
 
     /**
-     * Creates new form OscLoggerForm
+     * Creates new form UDPLoggerForm
      */
-    public OscLoggerForm(Traale t) {
+    public UDPLoggerForm(Traale t) {
         this.traale = t;
         initComponents();
     }
@@ -100,7 +100,7 @@ public class OscLoggerForm extends javax.swing.JFrame {
 
     private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
         unitName = jTextFieldProbeName.getText();
-        logger = new TraaleOscLogger(unitName, traale);
+        logger = new TraaleUDPLogger(unitName, traale);
         traale.addTraaleListener(logger);
         logger.startLogging();
         jButtonStart.setEnabled(false);

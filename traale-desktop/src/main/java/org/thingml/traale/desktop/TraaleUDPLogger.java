@@ -26,7 +26,7 @@ import org.thingml.traale.driver.TraaleListener;
  *
  * @author steffend
  */
-public class TraaleOscLogger implements TraaleListener {
+public class TraaleUDPLogger implements TraaleListener {
 
     private Traale traale;
     private String probeName;
@@ -38,7 +38,7 @@ public class TraaleOscLogger implements TraaleListener {
     private VirtualOscComm vOscGyrZ;
     private boolean logging = false;
     
-    public TraaleOscLogger(String probeName, Traale traale) {
+    public TraaleUDPLogger(String probeName, Traale traale) {
         this.traale = traale;
         this.probeName = probeName;
         this.logging = false;
