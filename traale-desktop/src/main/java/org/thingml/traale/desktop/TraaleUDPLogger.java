@@ -30,12 +30,12 @@ public class TraaleUDPLogger implements TraaleListener {
 
     private Traale traale;
     private String probeName;
-    private VirtualOscComm vOscAccX;
-    private VirtualOscComm vOscAccY;
-    private VirtualOscComm vOscAccZ;
-    private VirtualOscComm vOscGyrX;
-    private VirtualOscComm vOscGyrY;
-    private VirtualOscComm vOscGyrZ;
+    private UDPOscComm vOscAccX;
+    private UDPOscComm vOscAccY;
+    private UDPOscComm vOscAccZ;
+    private UDPOscComm vOscGyrX;
+    private UDPOscComm vOscGyrY;
+    private UDPOscComm vOscGyrZ;
     private boolean logging = false;
     
     public TraaleUDPLogger(String probeName, Traale traale) {
@@ -46,17 +46,17 @@ public class TraaleUDPLogger implements TraaleListener {
     
     public void startLogging() {
            
-           vOscAccX = new VirtualOscComm();
+           vOscAccX = new UDPOscComm();
            vOscAccX.open_communication("127.0.0.1", this.probeName + ".AccX");
-           vOscAccY = new VirtualOscComm();
+           vOscAccY = new UDPOscComm();
            vOscAccY.open_communication("127.0.0.1", this.probeName + ".AccY");
-           vOscAccZ = new VirtualOscComm();
+           vOscAccZ = new UDPOscComm();
            vOscAccZ.open_communication("127.0.0.1", this.probeName + ".AccZ");
-           vOscGyrX = new VirtualOscComm();
+           vOscGyrX = new UDPOscComm();
            vOscGyrX.open_communication("127.0.0.1", this.probeName + ".GyrX");
-           vOscGyrY = new VirtualOscComm();
+           vOscGyrY = new UDPOscComm();
            vOscGyrY.open_communication("127.0.0.1", this.probeName + ".GyrY");
-           vOscGyrZ = new VirtualOscComm();
+           vOscGyrZ = new UDPOscComm();
            vOscGyrZ.open_communication("127.0.0.1", this.probeName + ".GyrZ");
            logging = true;
     }

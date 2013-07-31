@@ -29,7 +29,7 @@ import java.net.SocketTimeoutException;
  *
  * @author steffend
  */
-public class VirtualOscComm {
+public class UDPOscComm {
     
     protected DatagramSocket udpSocket;
     protected InetAddress IPAddress;
