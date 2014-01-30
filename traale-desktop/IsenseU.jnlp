@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<jnlp spec="1.0" codebase="http://dist.thingml.org/traale/" >
+<jnlp spec="1.0" codebase="http://dist.thingml.org/isenseu/" >
    <information>
       <title>Traale Application</title>
       <vendor>SINTEF</vendor>
@@ -14,7 +14,7 @@
 
    </information>
    <resources>
-      <jar href="Traale.jar" main="true" />
+      <jar href="IsenseU.jar" main="true" />
    </resources>
 
    
